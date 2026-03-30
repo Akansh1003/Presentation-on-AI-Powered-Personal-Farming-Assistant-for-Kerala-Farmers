@@ -1,0 +1,83 @@
+{
+  "greetings": {
+    "context": "Krishi Sakhi is an AI farming assistant specifically designed for Kerala farmers. It provides personalized advice based on local conditions, crops, and farming practices.",
+    "responses": [
+      "Hello! I'm Krishi Sakhi, your AI farming assistant for Kerala. I specialize in helping farmers with crop management, weather advice, and agricultural best practices. How can I help you today?",
+      "Namaste! Welcome to Krishi Sakhi. I'm here to provide expert farming guidance tailored to Kerala's unique agricultural conditions. What farming questions do you have?",
+      "Greetings, farmer friend! I'm Krishi Sakhi, your dedicated agricultural AI assistant. I can help with everything from crop selection to pest management in Kerala's climate. What would you like to know?"
+    ]
+  },
+  "crops": {
+    "rice": {
+      "varieties": ["Jyothi - short duration 110 days", "Bhagya - aromatic variety", "Uma - pest resistant", "Aiswarya - high yielding"],
+      "seasons": ["Virippu (June-July) - main season", "Mundakan (November-December) - winter crop", "Punja (December-January) - summer crop"],
+      "cultivation": "Rice thrives in Kerala's monsoon climate. Plant during monsoon onset for best results. Requires well-prepared puddled fields with standing water.",
+      "fertilizer": "Apply NPK 90:45:45 kg per hectare along with 5 tons of organic manure. Split application - 50% nitrogen as basal, 25% at tillering, 25% at panicle initiation.",
+      "diseases": "Common issues include blast disease, brown spot, and sheath blight. Use Tricyclazole for blast control and maintain proper field hygiene.",
+      "yield": "Expected yield is 4-6 tons per hectare with proper management",
+      "market_price": "Current price ranges from ₹2,800 to ₹3,200 per quintal depending on quality and variety"
+    },
+    "coconut": {
+      "varieties": ["West Coast Tall - traditional variety", "Chowghat Orange Dwarf - early bearing", "Malayan Dwarf - compact size", "Laccadive Micro Tall - drought tolerant"],
+      "cultivation": "Coconut is Kerala's pride crop. Plant during pre-monsoon (May-June) or post-monsoon (September-October) for best establishment.",
+      "fertilizer": "Apply 50kg organic manure, 1.3kg Urea, 2kg Single Super Phosphate, and 2kg Muriate of Potash per palm annually.",
+      "diseases": "Root wilt and bud rot are major concerns. Ensure proper drainage and avoid waterlogging. Use Aureofungin for root wilt treatment.",
+      "yield": "A mature palm yields 80-120 nuts annually. Dwarf varieties start bearing in 3-4 years, tall varieties in 6-8 years.",
+      "market_price": "Fresh coconuts sell for ₹25-40 per nut depending on size and local demand"
+    },
+    "pepper": {
+      "varieties": ["Panniyur-1 - high yielding", "Karimunda - traditional variety", "Subhakara - disease resistant", "Sreekara - suitable for high rainfall areas"],
+      "cultivation": "Black pepper is Kerala's spice king. Plant during monsoon onset (May-June) with proper support structures. Requires well-drained, organic-rich soil.",
+      "fertilizer": "Apply 10kg organic manure annually along with NPK 50:50:100 grams per vine. Split application during pre-monsoon and post-monsoon.",
+      "diseases": "Quick wilt is the most serious disease. Prevent through proper drainage and avoid waterlogging. Use Metalaxyl + Mancozeb for treatment.",
+      "yield": "A mature vine yields 1-3 kg of dried pepper annually. Commercial production starts from 3rd year.",
+      "market_price": "Dried black pepper prices range from ₹500-800 per kg based on quality and market conditions"
+    }
+  },
+  "weather_advice": {
+    "monsoon": "During monsoon, focus on transplanting rice, maintaining drainage in coconut gardens, and supporting pepper vines. Monitor for fungal diseases due to high humidity.",
+    "summer": "In summer months, ensure adequate irrigation, mulching around coconut palms, and prepare land for next season. This is harvest time for many crops.",
+    "winter": "Winter is ideal for vegetable cultivation, harvesting of rice (Mundakan season), and maintenance work in perennial crops. Good time for organic manure application."
+  },
+  "government_schemes": {
+    "pm_kisan": {
+      "name": "PM-KISAN (Pradhan Mantri Kisan Samman Nidhi)",
+      "description": "Direct income support scheme providing ₹6,000 per year to small and marginal farmers in three installments of ₹2,000 each.",
+      "eligibility": "Farmers with combined land holding up to 2 hectares",
+      "link": "https://pmkisan.gov.in/",
+      "helpline": "155261 or 1800115526"
+    },
+    "pmfby": {
+      "name": "Pradhan Mantri Fasal Bima Yojana",
+      "description": "Comprehensive crop insurance scheme protecting farmers against crop losses due to natural calamities, pests, and diseases.",
+      "premium": "Farmers pay only 2% for Kharif, 1.5% for Rabi, and 5% for horticulture crops",
+      "link": "https://pmfby.gov.in/"
+    },
+    "kcc": {
+      "name": "Kisan Credit Card",
+      "description": "Credit facility for farmers to meet agricultural expenses with flexible repayment and low interest rates.",
+      "interest_rate": "7% for timely repayment, subsidized rates available",
+      "link": "https://www.nabard.org/content1.aspx?id=570&catid=23&mid=530"
+    }
+  },
+  "market_information": {
+    "price_factors": "Market prices depend on quality, season, demand-supply situation, and government policies. Always check local market rates before selling.",
+    "marketing_tips": "Grade your produce properly, time your sales during peak demand, explore direct marketing options, and maintain post-harvest quality.",
+    "price_trends": "Rice prices are generally stable throughout the year. Coconut prices fluctuate based on oil industry demand. Spice prices are more volatile and dependent on export markets."
+  },
+  "pest_disease_management": {
+    "integrated_approach": "Use IPM (Integrated Pest Management) combining cultural, biological, and chemical methods. Always prefer organic and biological controls first.",
+    "common_pests": "Rice: Brown planthopper, stem borer. Coconut: Rhinoceros beetle, red palm weevil. Pepper: Thrips, mites, nematodes.",
+    "organic_solutions": "Neem oil, garlic-chili extract, pheromone traps, beneficial insects, and proper crop rotation help control pests naturally."
+  },
+  "soil_management": {
+    "kerala_soils": "Kerala has diverse soils - laterite in midland, alluvial in lowland, and forest soils in highlands. Each requires specific management.",
+    "soil_health": "Regular soil testing every 2-3 years helps optimize fertilizer use. Maintain soil pH between 6.0-7.5 for most crops.",
+    "organic_matter": "Add organic matter regularly through crop residues, green manuring, and compost. This improves soil structure and water retention."
+  },
+  "irrigation_water": {
+    "water_management": "Kerala receives good rainfall but water conservation is important. Use drip irrigation, mulching, and rainwater harvesting.",
+    "irrigation_scheduling": "Water rice fields continuously but maintain 2-3 cm water depth. For coconut, deep watering once a week is better than frequent light watering.",
+    "water_quality": "Use clean water for irrigation. Avoid saline or polluted water which can harm crops and soil health."
+  }
+}

@@ -1,0 +1,72 @@
+# ================================================================
+# 🌾 KRISHI SAKHI - PYTHON DEPENDENCIES
+# ================================================================
+#
+# 📋 PURPOSE:
+# This file lists all Python packages required to run Krishi Sakhi.
+# It includes specific versions tested for compatibility and stability.
+#
+# 🛠️ USAGE:
+# Install all dependencies with: pip install -r requirements.txt
+#
+# 🔧 CATEGORIES:
+# - Web Framework (Flask and extensions)
+# - AI/ML Libraries (PyTorch, Transformers)
+# - Utility Libraries (requests, numpy, etc.)
+#
+# Author: AI Development Team
+# Version: 2.0.0 - Production Ready
+# Last Updated: September 2025
+# ================================================================
+
+# ================================================================
+# WEB FRAMEWORK AND EXTENSIONS
+# ================================================================
+Flask==2.3.2                    # Lightweight web application framework
+Flask-CORS==4.0.0               # Cross-Origin Resource Sharing support
+Flask-SQLAlchemy==3.0.5         # Object-relational mapping for databases
+
+# ================================================================
+# AI AND MACHINE LEARNING
+# ================================================================
+torch==2.0.1                    # Deep learning framework for model loading
+transformers==4.30.0            # Hugging Face transformers for AI models
+tokenizers==0.13.3              # Fast tokenization library for NLP models
+
+# ================================================================
+# UTILITY LIBRARIES
+# ================================================================
+requests==2.31.0                # HTTP library for API calls (weather, etc.)
+numpy==1.24.3                   # Numerical computing (required by AI models)
+python-dotenv==1.0.0            # Environment variable management
+
+# ================================================================
+# OPTIONAL DEPENDENCIES (for enhanced features)
+# ================================================================
+# Pillow==9.5.0                 # Image processing (for future image recognition)
+# matplotlib==3.7.1             # Data visualization (for analytics dashboard)
+# pandas==2.0.2                 # Data manipulation (for advanced reporting)
+
+# ================================================================
+# DEVELOPMENT DEPENDENCIES (for contributors)
+# ================================================================
+# pytest==7.3.2                 # Testing framework
+# black==23.3.0                 # Code formatting
+# flake8==6.0.0                 # Code linting
+
+# ================================================================
+# PLATFORM-SPECIFIC NOTES:
+# ================================================================
+# Windows: All packages should install without issues
+# Linux: May need additional system packages (gcc, python3-dev)
+# macOS: May need Xcode command line tools for compilation
+#
+# Memory Requirements:
+# - Minimum: 4GB RAM
+# - Recommended: 8GB+ RAM for optimal AI model performance
+#
+# Disk Space:
+# - Base packages: ~2GB
+# - AI models: ~1-2GB additional
+# - Total: ~3-4GB required
+# ================================================================

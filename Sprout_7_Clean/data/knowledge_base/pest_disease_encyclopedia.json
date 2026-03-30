@@ -1,0 +1,272 @@
+{
+  "major_pests": {
+    "rice_pests": {
+      "brown_planthopper": {
+        "scientific_name": "Nilaparvata lugens",
+        "damage_symptoms": "Yellowing and drying of rice plants from base, hopperburn condition, honeydew secretion",
+        "life_cycle": "Egg (7-9 days) → 5 nymphal stages (12-15 days) → Adult (15-20 days)",
+        "favorable_conditions": "High humidity (80-85%), temperature 25-30°C, excessive nitrogen",
+        "management": {
+          "cultural": "Avoid excessive nitrogen, maintain proper plant spacing, use resistant varieties",
+          "biological": "Conserve natural enemies like spiders, mirid bugs, egg parasitoids",
+          "chemical": "Imidacloprid 17.8% SL @ 100ml/ha, Thiamethoxam 25% WG @ 100g/ha"
+        },
+        "resistant_varieties": ["Uma", "Jyothi", "Rohini"],
+        "economic_threshold": "5-10 hoppers per plant at tillering stage"
+      },
+      "stem_borer": {
+        "scientific_name": "Scirpophaga incertulas",
+        "damage_symptoms": "Dead hearts in vegetative stage, white heads at reproductive stage, silk threads and frass",
+        "life_cycle": "Egg (5-7 days) → 5-6 larval stages (25-35 days) → Pupa (7-10 days) → Adult (5-7 days)",
+        "favorable_conditions": "High humidity, lush vegetative growth, staggered planting",
+        "management": {
+          "cultural": "Synchronous planting, remove stubbles, avoid ratoon crop",
+          "biological": "Egg parasitoid Trichogramma japonicum @ 50,000/ha, predatory birds",
+          "chemical": "Cartap hydrochloride 4G @ 18.75kg/ha, Chlorantraniliprole 18.5% SC @ 150ml/ha"
+        },
+        "monitoring": "Pheromone traps @ 8 traps/ha for monitoring adult moth activity",
+        "economic_threshold": "2% dead hearts at vegetative stage, 5% white heads at reproductive stage"
+      },
+      "gall_midge": {
+        "scientific_name": "Orseolia oryzae",
+        "damage_symptoms": "Silver shoot formation, onion leaf symptom, stunted growth",
+        "management": {
+          "cultural": "Deep summer ploughing, avoid early planting, use resistant varieties",
+          "chemical": "Carbofuran 3G @ 33kg/ha, Fipronil 0.3G @ 25kg/ha at 15 DAT"
+        },
+        "resistant_varieties": ["Abhaya", "Bharani", "Sharada"]
+      }
+    },
+    "coconut_pests": {
+      "rhinoceros_beetle": {
+        "scientific_name": "Oryctes rhinoceros",
+        "damage_symptoms": "V-shaped cuts on fronds, boring holes in unopened spear leaves, reduced nut production",
+        "life_cycle": "Egg (12-20 days) → 3 larval stages (60-120 days) → Pupa (14-21 days) → Adult (4-6 months)",
+        "breeding_sites": "Decaying coconut logs, manure pits, compost heaps, sawdust",
+        "management": {
+          "cultural": "Remove and destroy breeding materials, avoid fresh manure application",
+          "biological": "Release Baculovirus oryctes, encourage natural enemies",
+          "mechanical": "Hook out beetles from attacked palms, use light traps",
+          "chemical": "Spray Carbaryl 0.15% on crown, soil application of Phorate 10G"
+        },
+        "pheromone_traps": "Use aggregation pheromone traps @ 1 trap per 2 hectares"
+      },
+      "red_palm_weevil": {
+        "scientific_name": "Rhynchophorus ferrugineus",
+        "damage_symptoms": "Yellowing of crown leaves, oozing of reddish brown liquid, hollow sound when tapped",
+        "life_cycle": "Egg (3-5 days) → 6-8 larval stages (35-60 days) → Pupa (14-21 days) → Adult (60-90 days)",
+        "entry_points": "Wounds, pruning cuts, leaf axils, growing points",
+        "management": {
+          "prevention": "Avoid injuries, proper pruning techniques, quarantine measures",
+          "early_detection": "Regular inspection, pheromone trap monitoring",
+          "curative": "Injection of insecticide solution, removal of affected palms",
+          "chemical": "Imidacloprid injection, trunk injection with Emamectin benzoate"
+        },
+        "pheromone_traps": "Ferrulure + food bait @ 1 trap per hectare"
+      },
+      "coconut_mite": {
+        "scientific_name": "Aceria guerreronis",
+        "damage_symptoms": "Brown patches on immature nuts, distorted nut development, premature nut fall",
+        "favorable_conditions": "High humidity, protected locations under bracts",
+        "management": {
+          "cultural": "Remove affected nuts, maintain field sanitation",
+          "biological": "Conserve predatory mites, fungal pathogens",
+          "chemical": "Spray Propargite 57% EC @ 2ml/L, Abamectin @ 0.5ml/L"
+        }
+      }
+    },
+    "pepper_pests": {
+      "pollu_beetle": {
+        "scientific_name": "Longitarsus nigripennis",
+        "damage_symptoms": "Boring holes in tender shoots, spikes, and leaves, stunted growth",
+        "life_cycle": "Egg (7-10 days) → 3 larval stages (21-28 days) → Pupa (7-10 days) → Adult (30-45 days)",
+        "peak_activity": "April-May and September-October coinciding with new shoot emergence",
+        "management": {
+          "cultural": "Remove and destroy affected plant parts, avoid overhead irrigation",
+          "biological": "Conserve natural enemies, use entomopathogenic fungi",
+          "chemical": "Quinalphos 25% EC @ 2ml/L, Dimethoate 30% EC @ 2ml/L"
+        }
+      },
+      "scale_insects": {
+        "species": ["Aspidiotus destructor", "Hemiberlesia lataniae"],
+        "damage_symptoms": "Yellowing of leaves, stunted growth, sooty mold development",
+        "management": {
+          "cultural": "Prune affected parts, improve air circulation",
+          "biological": "Conserve lady bird beetles, parasitic wasps",
+          "chemical": "Spray Dimethoate 30% EC @ 2ml/L, Malathion 50% EC @ 2ml/L"
+        }
+      }
+    }
+  },
+  "major_diseases": {
+    "rice_diseases": {
+      "blast": {
+        "causal_organism": "Pyricularia oryzae (Magnaporthe oryzae)",
+        "types": ["Leaf blast", "Node blast", "Neck blast", "Panicle blast"],
+        "symptoms": {
+          "leaf_blast": "Diamond-shaped lesions with brown borders and gray centers",
+          "neck_blast": "Brown to black lesions on neck node causing panicle breakage"
+        },
+        "favorable_conditions": "High humidity (90%+), temperature 25-28°C, excessive nitrogen",
+        "management": {
+          "cultural": "Use resistant varieties, balanced fertilization, proper spacing",
+          "biological": "Pseudomonas fluorescens, Trichoderma viride seed treatment",
+          "chemical": "Tricyclazole 75% WP @ 0.6g/L, Tebuconazole 50% + Trifloxystrobin 25% WG"
+        },
+        "resistant_varieties": ["Uma", "Amala", "Rohini", "Bharatheeya"]
+      },
+      "bacterial_blight": {
+        "causal_organism": "Xanthomonas oryzae pv. oryzae",
+        "symptoms": "Water-soaked lesions on leaf margins, yellowing and drying, kresek symptom",
+        "favorable_conditions": "High humidity, temperature 25-34°C, wounds and injuries",
+        "management": {
+          "cultural": "Use certified seeds, avoid mechanical injuries, balanced nutrition",
+          "biological": "Pseudomonas fluorescens seed treatment @ 10g/kg seed",
+          "chemical": "Copper oxychloride 50% WP @ 3g/L, Streptocycline @ 0.1g/L"
+        },
+        "resistant_varieties": ["Improved Samba Mahsuri", "Tellahamsa", "Vijetha"]
+      },
+      "sheath_blight": {
+        "causal_organism": "Rhizoctonia solani",
+        "symptoms": "Oval to irregular lesions on leaf sheath, grayish-green with brown borders",
+        "favorable_conditions": "High humidity, dense plant stand, excessive nitrogen",
+        "management": {
+          "cultural": "Proper spacing, avoid excessive nitrogen, remove lower leaves",
+          "biological": "Trichoderma viride, Pseudomonas fluorescens soil application",
+          "chemical": "Hexaconazole 5% EC @ 2ml/L, Propiconazole 25% EC @ 1ml/L"
+        }
+      }
+    },
+    "coconut_diseases": {
+      "root_wilt": {
+        "causal_organism": "Complex of factors including fungi and mycoplasma",
+        "symptoms": "Yellowing of outer whorl leaves, drooping, reduced nut size and yield",
+        "stages": ["Initial yellowing", "Advanced yellowing", "Wilting and death"],
+        "favorable_conditions": "Poor drainage, waterlogging, nutrient deficiency",
+        "management": {
+          "cultural": "Improve drainage, organic matter addition, balanced nutrition",
+          "biological": "Trichoderma viride, Pseudomonas fluorescens soil application",
+          "chemical": "Aureofungin 2g + Neem cake 200g per palm, root feeding"
+        },
+        "prevention": "Plant resistant varieties, ensure proper drainage, avoid waterlogging"
+      },
+      "bud_rot": {
+        "causal_organism": "Phytophthora palmivora",
+        "symptoms": "Rotting of growing point, foul smell, crown collapse",
+        "favorable_conditions": "High rainfall, poor drainage, wounds",
+        "management": {
+          "cultural": "Improve drainage, avoid injuries to growing point",
+          "chemical": "Remove rotten tissues, apply Bordeaux mixture paste",
+          "prevention": "Proper spacing, avoid overhead irrigation of crown"
+        }
+      },
+      "leaf_spot": {
+        "causal_organisms": ["Pestalotiopsis palmarum", "Exserohilum rostratum"],
+        "symptoms": "Brown spots with yellow halos on leaves, premature leaf fall",
+        "management": {
+          "cultural": "Remove affected leaves, improve air circulation",
+          "chemical": "Spray Propiconazole 25% EC @ 1ml/L, Copper oxychloride 50% WP"
+        }
+      }
+    },
+    "pepper_diseases": {
+      "quick_wilt": {
+        "causal_organism": "Phytophthora capsici",
+        "symptoms": "Sudden wilting of leaves, yellowing, vine death within days",
+        "favorable_conditions": "High soil moisture, poor drainage, warm temperature",
+        "management": {
+          "cultural": "Improve drainage, avoid waterlogging, use resistant varieties",
+          "biological": "Trichoderma harzianum soil application",
+          "chemical": "Metalaxyl + Mancozeb @ 2g/L, Fosetyl aluminium @ 3g/L"
+        },
+        "resistant_varieties": ["Subhakara", "Sreekara", "Panchami"]
+      },
+      "anthracnose": {
+        "causal_organism": "Colletotrichum capsici",
+        "symptoms": "Dark brown circular spots on leaves and berries, premature fruit drop",
+        "favorable_conditions": "High humidity, warm temperature, poor air circulation",
+        "management": {
+          "cultural": "Improve air circulation, avoid overhead irrigation",
+          "chemical": "Copper oxychloride 50% WP @ 3g/L, Carbendazim 50% WP @ 1g/L"
+        }
+      },
+      "slow_wilt": {
+        "causal_organism": "Radopholus similis (nematode)",
+        "symptoms": "Gradual yellowing and wilting, stunted growth, reduced yield",
+        "management": {
+          "cultural": "Use nematode-free planting material, organic matter addition",
+          "biological": "Pochonia chlamydosporia, Paecilomyces lilacinus",
+          "chemical": "Carbofuran 3G @ 40g per vine, Phorate 10G soil application"
+        }
+      }
+    }
+  },
+  "organic_pest_management": {
+    "neem_based_solutions": {
+      "neem_oil": {
+        "concentration": "3-5ml per liter of water",
+        "target_pests": "Aphids, thrips, whiteflies, caterpillars",
+        "application": "Spray during evening hours, repeat every 7-10 days",
+        "mode_of_action": "Antifeedant, growth regulator, repellent"
+      },
+      "neem_seed_kernel_extract": {
+        "preparation": "50g NSKE in 1 liter water, filter and spray",
+        "effectiveness": "Against sucking pests, leaf eating caterpillars",
+        "persistence": "7-10 days under field conditions"
+      },
+      "neem_cake": {
+        "application_rate": "200-250g per plant for soil application",
+        "benefits": "Soil conditioner, slow-release nitrogen, nematode control",
+        "frequency": "Apply during manure application, 2-3 times per year"
+      }
+    },
+    "other_botanical_pesticides": {
+      "garlic_chili_extract": {
+        "preparation": "100g garlic + 100g chili blended with 1L water, strain",
+        "target_pests": "Aphids, thrips, caterpillars",
+        "application": "Spray early morning or evening"
+      },
+      "tobacco_decoction": {
+        "preparation": "100g tobacco waste boiled in 1L water for 30 minutes",
+        "target_pests": "Sucking pests, caterpillars",
+        "caution": "Toxic to beneficial insects also"
+      },
+      "soap_solution": {
+        "preparation": "5-10g soap per liter of water",
+        "target_pests": "Aphids, scale insects, mites",
+        "advantage": "Safe, readily available, low cost"
+      }
+    },
+    "biological_control_agents": {
+      "trichoderma_viride": {
+        "application_rate": "5g per kg seed for seed treatment, 5g per liter for foliar spray",
+        "target_diseases": "Soil-borne fungal diseases, root rot, wilt",
+        "benefits": "Disease suppression, plant growth promotion, induced resistance"
+      },
+      "pseudomonas_fluorescens": {
+        "application_rate": "10g per kg seed, 5g per liter for soil drench",
+        "target_diseases": "Bacterial diseases, some fungal diseases",
+        "additional_benefits": "Plant growth promotion, induced systemic resistance"
+      },
+      "bacillus_thuringiensis": {
+        "application_rate": "1-2g per liter of water",
+        "target_pests": "Lepidopteran caterpillars (stem borer, leaf folder)",
+        "specificity": "Specific to caterpillars, safe to beneficial insects"
+      }
+    }
+  },
+  "integrated_disease_management": {
+    "principles": "Combination of multiple strategies for sustainable disease management",
+    "strategies": {
+      "genetic_resistance": "Use of resistant/tolerant varieties as first line of defense",
+      "cultural_practices": "Crop rotation, sanitation, proper spacing, balanced nutrition",
+      "biological_control": "Use of beneficial microorganisms and natural enemies",
+      "chemical_control": "Judicious use of fungicides as last resort"
+    },
+    "monitoring_and_forecasting": {
+      "disease_surveillance": "Regular field monitoring for early detection",
+      "weather_based_forecasting": "Use weather parameters for disease prediction",
+      "action_thresholds": "Economic threshold levels for decision making"
+    }
+  }
+}

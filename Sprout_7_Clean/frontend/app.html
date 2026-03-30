@@ -1,0 +1,2494 @@
+<!--
+🌾 KRISHI SAKHI - AI FARMING ASSISTANT FRONTEND
+===============================================
+
+📋 PURPOSE:
+This is the complete frontend interface for Krishi Sakhi, Kerala's AI farming assistant.
+It provides a modern, responsive web interface that allows farmers to interact with 
+the AI backend through chat, dedicated feature pages, and live data cards.
+
+🔧 WHAT THIS FILE CONTAINS:
+- Complete HTML5 structure with semantic elements
+- Advanced CSS3 styling with animations and responsive design  
+- Vanilla JavaScript for API communication and dynamic interactions
+- Permanently visible chat interface for instant AI assistance
+- Dedicated pages for Weather, Market, Calendar, Crops, Disease, and Schemes
+- Animated sidebar navigation with professional UI/UX
+- Live updating cards with real-time data from backend APIs
+- Mobile-first responsive design for all device types
+
+🌐 FEATURES PROVIDED:
+- Real-time AI chat with conversation memory
+- Live weather dashboard with farming recommendations
+- Market price monitoring with rotating crop data
+- Comprehensive farming calendar and seasonal activities
+- Disease identification and management guide
+- Government scheme information and application guidance
+- User registration and profile management
+- Multi-language support (English/Malayalam)
+- Voice input capability for hands-free operation
+
+🎨 UI/UX HIGHLIGHTS:
+- Modern gradient backgrounds with floating animations
+- Smooth page transitions and hover effects
+- Professional sidebar with blur backdrop
+- Interactive feature cards with live data
+- Typing indicators and loading animations
+- Responsive grid layouts for all screen sizes
+- Accessibility features and semantic markup
+
+📱 TECHNOLOGY STACK:
+- HTML5: Semantic structure, modern forms, accessibility
+- CSS3: Grid/Flexbox layouts, animations, responsive design
+- JavaScript ES6+: Async/await, Fetch API, Local Storage
+- Font Awesome: Professional icon library
+- No external frameworks: Pure, lightweight code
+
+🚀 PERFORMANCE:
+- Fast loading with optimized assets
+- Efficient DOM manipulation
+- Lazy loading for better performance
+- Graceful error handling
+- Offline capability for core features
+
+🎯 TARGET AUDIENCE:
+Kerala farmers using smartphones, tablets, or computers to access AI farming guidance
+
+Author: AI Development Team  
+Version: 2.0.0 - Production Ready
+Last Updated: September 2025
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Krishi Sakhi - AI Farming Assistant</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2E8B57;
+            --secondary: #90EE90;
+            --accent: #FFD700;
+            --dark: #1a1a1a;
+            --light: #f8f9fa;
+            --shadow: rgba(0,0,0,0.1);
+            --success: #28a745;
+            --warning: #ffc107;
+            --danger: #dc3545;
+            --info: #17a2b8;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+
+        /* Enhanced Animated Background */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.1;
+            overflow: hidden;
+        }
+
+        .floating-shape {
+            position: absolute;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            animation: float 8s ease-in-out infinite;
+            filter: blur(1px);
+        }
+
+        .floating-shape:nth-child(1) { width: 80px; height: 80px; top: 10%; left: 10%; animation-delay: 0s; }
+        .floating-shape:nth-child(2) { width: 120px; height: 120px; top: 20%; right: 10%; animation-delay: 1s; }
+        .floating-shape:nth-child(3) { width: 60px; height: 60px; bottom: 30%; left: 20%; animation-delay: 2s; }
+        .floating-shape:nth-child(4) { width: 100px; height: 100px; bottom: 10%; right: 20%; animation-delay: 3s; }
+        .floating-shape:nth-child(5) { width: 70px; height: 70px; top: 60%; left: 70%; animation-delay: 4s; }
+        .floating-shape:nth-child(6) { width: 90px; height: 90px; top: 40%; left: 50%; animation-delay: 5s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg) scale(1); }
+            33% { transform: translateY(-20px) rotate(120deg) scale(1.1); }
+            66% { transform: translateY(10px) rotate(240deg) scale(0.9); }
+        }
+
+        /* Light particles animation */
+        .light-particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--accent);
+            border-radius: 50%;
+            animation: twinkle 3s ease-in-out infinite;
+        }
+
+        .light-particle:nth-child(odd) { animation-delay: 1s; }
+        .light-particle:nth-child(even) { animation-delay: 2s; }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.5); }
+        }
+
+        /* Gradient overlay */
+        .gradient-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(45deg, 
+                rgba(46,139,87,0.02) 0%, 
+                rgba(144,238,144,0.02) 25%, 
+                rgba(255,215,0,0.01) 50%, 
+                rgba(46,139,87,0.02) 75%, 
+                rgba(144,238,144,0.02) 100%);
+            animation: gradientShift 10s ease-in-out infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 0.8; }
+        }
+
+        /* Header */
+        .header {
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(20px);
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 20px var(--shadow);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .logo i {
+            font-size: 2rem;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 500;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .settings-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            border: 2px solid var(--primary);
+            background: rgba(255,255,255,0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .settings-btn:hover {
+            transform: rotate(30deg) scale(1.05);
+            background: var(--primary);
+            color: #fff;
+            box-shadow: 0 8px 20px rgba(46,139,87,0.3);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: -280px;
+            width: 260px;
+            height: 100vh;
+            background: rgba(255,255,255,0.97);
+            backdrop-filter: blur(14px);
+            box-shadow: 8px 0 30px rgba(0,0,0,0.15);
+            z-index: 1200;
+            transition: left 0.35s ease;
+            overflow-y: auto;
+        }
+
+        .sidebar.open { left: 0; }
+
+        .sidebar-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 1rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .sidebar-title { font-weight: 700; color: var(--primary); }
+
+        .sidebar-close {
+            border: none;
+            background: transparent;
+            font-size: 1.2rem;
+            color: #666;
+            cursor: pointer;
+        }
+
+        .nav-list { list-style: none; padding: 0.5rem 0; }
+        .nav-item { margin: 0.25rem 0; }
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.75rem 1rem;
+            color: #333;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+        .nav-link:hover { background: rgba(46,139,87,0.08); color: var(--primary); padding-left: 1.2rem; }
+        .nav-link i { width: 18px; }
+
+        /* Section pages */
+        .section-page {
+            display: none;
+            background: rgba(255,255,255,0.95);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px var(--shadow);
+            margin: 2rem 0;
+            padding: 1.5rem;
+            min-height: 400px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .section-page.active { 
+            display: block; 
+            animation: fadeInUp 0.3s ease;
+        }
+        
+        /* Animated background for section pages */
+        .section-page::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, 
+                transparent 30%, 
+                rgba(46,139,87,0.02) 35%, 
+                rgba(144,238,144,0.02) 40%, 
+                transparent 45%);
+            animation: pageBackground 8s linear infinite;
+            z-index: -1;
+        }
+        
+        .section-page::after {
+            content: '';
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, rgba(46,139,87,0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: pulseCircle 4s ease-in-out infinite;
+            z-index: -1;
+        }
+        
+        @keyframes pageBackground {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        @keyframes pulseCircle {
+            0%, 100% { transform: scale(1); opacity: 0.3; }
+            50% { transform: scale(1.2); opacity: 0.1; }
+        }
+
+        /* Page content styles */
+        .price-grid, .activity-grid, .crop-categories, .disease-categories, .scheme-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .price-card, .activity-card, .crop-category, .disease-category, .scheme-category {
+            background: rgba(46,139,87,0.05);
+            border-radius: 12px;
+            padding: 1rem;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .weather-card {
+            background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+            border-radius: 12px;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .crop-item, .disease-item, .scheme-item {
+            background: #fff;
+            border-radius: 8px;
+            padding: 0.75rem;
+            margin: 0.5rem 0;
+            border-left: 3px solid var(--secondary);
+        }
+        
+        .recommendation-tool, .disease-consultation, .scheme-consultation {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            text-align: center;
+        }
+        
+        .market-tips, .disease-prevention, .scheme-application {
+            background: rgba(255,193,7,0.1);
+            border-radius: 10px;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-left: 4px solid var(--warning);
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            box-shadow: 0 4px 15px rgba(46,139,87,0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(46,139,87,0.4);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Notifications */
+        .notification {
+            position: fixed;
+            top: 120px;
+            right: 20px;
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            color: white;
+            font-weight: 500;
+            z-index: 10000;
+            transform: translateX(400px);
+            opacity: 0;
+            transition: all 0.3s ease;
+            max-width: 350px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+
+        .notification.show {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .notification-success {
+            background: linear-gradient(135deg, var(--success), #20c997);
+        }
+
+        .notification-error {
+            background: linear-gradient(135deg, var(--danger), #e74c3c);
+        }
+
+        .notification-warning {
+            background: linear-gradient(135deg, var(--warning), #f39c12);
+        }
+
+        .notification-info {
+            background: linear-gradient(135deg, var(--info), #3498db);
+        }
+
+        /* Typing Indicator */
+        .typing-indicator {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            color: #666;
+            font-style: italic;
+        }
+
+        .typing-dots {
+            display: flex;
+            gap: 0.3rem;
+        }
+
+        .typing-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--primary);
+            border-radius: 50%;
+            animation: typingDots 1.4s ease-in-out infinite;
+        }
+
+        .typing-dot:nth-child(1) { animation-delay: 0ms; }
+        .typing-dot:nth-child(2) { animation-delay: 200ms; }
+        .typing-dot:nth-child(3) { animation-delay: 400ms; }
+
+        @keyframes typingDots {
+            0%, 60%, 100% { transform: translateY(0); }
+            30% { transform: translateY(-10px); }
+        }
+
+        /* Enhanced Loading Animation */
+        .loading {
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-top: 2px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .status-indicator {
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            animation: pulse-dot 2s infinite;
+        }
+
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .status-connected {
+            background: rgba(40,167,69,0.1);
+            color: var(--success);
+            border: 1px solid var(--success);
+        }
+
+        .status-disconnected {
+            background: rgba(220,53,69,0.1);
+            color: var(--danger);
+            border: 1px solid var(--danger);
+        }
+
+        .status-checking {
+            background: rgba(255,193,7,0.1);
+            color: var(--warning);
+            border: 1px solid var(--warning);
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-top: 90px;
+            padding: 2rem;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-section {
+            text-align: center;
+            padding: 3rem 0;
+            background: rgba(255,255,255,0.9);
+            border-radius: 20px;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px var(--shadow);
+        }
+
+        .hero-title {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            animation: slideInUp 1s ease;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 2rem;
+            animation: slideInUp 1s ease 0.2s both;
+        }
+        
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin: 2rem 0;
+            animation: slideInUp 1s ease 0.4s both;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: block;
+            animation: countUp 2s ease;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 0.5rem;
+        }
+        
+        .hero-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 1.5rem;
+        }
+        
+        @keyframes countUp {
+            from { opacity: 0; transform: scale(0.5); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .feature-card {
+            background: rgba(255,255,255,0.95);
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px var(--shadow);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px var(--shadow);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover .feature-icon {
+            transform: scale(1.2);
+            color: var(--secondary);
+        }
+
+        .feature-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+
+        .feature-desc {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Live Card Styles */
+        .live-card {
+            border: 2px solid var(--primary);
+            animation: livePulse 3s ease-in-out infinite;
+        }
+
+        @keyframes livePulse {
+            0%, 100% { box-shadow: 0 5px 20px var(--shadow); }
+            50% { box-shadow: 0 5px 20px var(--shadow), 0 0 20px rgba(46,139,87,0.2); }
+        }
+
+        .live-content {
+            background: rgba(46,139,87,0.1);
+            border-radius: 10px;
+            padding: 0.75rem;
+            margin: 0.5rem 0;
+            font-weight: 600;
+            color: var(--primary);
+            min-height: 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            font-size: 0.9rem;
+            line-height: 1.3;
+        }
+
+        .market-card {
+            position: relative;
+        }
+
+        .market-card::after {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, var(--primary), var(--accent), var(--primary));
+            background-size: 200% 200%;
+            animation: gradientShift 4s ease-in-out infinite;
+            border-radius: 17px;
+            z-index: -1;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        /* Chat Interface */
+        .chat-container {
+            background: rgba(255,255,255,0.95);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px var(--shadow);
+            margin: 2rem 0;
+            overflow: hidden;
+            min-height: 500px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 1rem;
+            overflow-y: auto;
+            max-height: 400px;
+        }
+
+        .message {
+            display: flex;
+            margin-bottom: 1rem;
+            animation: fadeInUp 0.3s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .message-user {
+            justify-content: flex-end;
+        }
+
+        .message-bot {
+            justify-content: flex-start;
+        }
+
+        .message-content {
+            max-width: 70%;
+            padding: 1rem 1.5rem;
+            border-radius: 18px;
+            line-height: 1.5;
+        }
+
+        .message-user .message-content {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+        }
+
+        .message-bot .message-content {
+            background: #f1f3f4;
+            color: var(--dark);
+        }
+
+        .chat-input-area {
+            padding: 1rem;
+            border-top: 1px solid #eee;
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .chat-input {
+            flex: 1;
+            padding: 1rem 1.5rem;
+            border: 2px solid #eee;
+            border-radius: 25px;
+            outline: none;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .chat-input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(46,139,87,0.1);
+        }
+
+        .chat-send-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border: none;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .chat-send-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 5px 15px rgba(46,139,87,0.3);
+        }
+
+        .voice-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--accent);
+            border: none;
+            color: var(--dark);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .voice-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .voice-btn.recording {
+            background: var(--danger);
+            color: white;
+            animation: recording-pulse 1s infinite;
+        }
+
+        @keyframes recording-pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        /* Modal */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modal.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            transform: scale(0.7);
+            transition: transform 0.3s ease;
+        }
+
+        .modal.show .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .modal-title {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--dark);
+        }
+
+        .form-input, .form-select {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #eee;
+            border-radius: 10px;
+            outline: none;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .form-input:focus, .form-select:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(46,139,87,0.1);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .checkbox-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .notification {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            color: white;
+            font-weight: 500;
+            z-index: 3000;
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+            box-shadow: 0 5px 15px var(--shadow);
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        .notification-success { background: var(--success); }
+        .notification-error { background: var(--danger); }
+        .notification-warning { background: var(--warning); }
+        .notification-info { background: var(--info); }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-container {
+                padding: 0 1rem;
+            }
+            
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-actions {
+                gap: 0.5rem;
+            }
+            
+            .btn {
+                padding: 0.5rem 1rem;
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .typing-indicator {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 1.5rem;
+            background: #f1f3f4;
+            border-radius: 18px;
+            margin-bottom: 1rem;
+        }
+
+        .typing-dots {
+            display: flex;
+            gap: 4px;
+        }
+
+        .typing-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #999;
+            animation: typing 1.4s infinite;
+        }
+
+        .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes typing {
+            0%, 60%, 100% {
+                transform: translateY(0);
+            }
+            30% {
+                transform: translateY(-10px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Enhanced Animated Background -->
+    <div class="bg-animation">
+        <div class="floating-shape"></div>
+        <div class="floating-shape"></div>
+        <div class="floating-shape"></div>
+        <div class="floating-shape"></div>
+        <div class="floating-shape"></div>
+        <div class="floating-shape"></div>
+        <div class="light-particle" style="top: 20%; left: 15%;"></div>
+        <div class="light-particle" style="top: 40%; left: 80%;"></div>
+        <div class="light-particle" style="top: 70%; left: 30%;"></div>
+        <div class="light-particle" style="top: 60%; left: 60%;"></div>
+        <div class="light-particle" style="top: 30%; left: 45%;"></div>
+        <div class="light-particle" style="top: 80%; left: 75%;"></div>
+    </div>
+    <div class="gradient-overlay"></div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <i class="fas fa-seedling"></i>
+                <span>Krishi Sakhi</span>
+            </a>
+            <div class="nav-actions">
+                <button class="status-indicator status-checking" id="statusIndicator">
+                    <div class="status-dot"></div>
+                    <span id="statusText">Checking...</span>
+                </button>
+                <button class="btn btn-outline" id="languageToggle">
+                    <i class="fas fa-language"></i>
+                    <span id="languageText">മലയാളം</span>
+                </button>
+                <button class="btn btn-primary" id="registerBtn">
+                    <i class="fas fa-user-plus"></i>
+                    <span>Register</span>
+                </button>
+                <button class="settings-btn" id="settingsBtn">
+                    <i class="fas fa-cog"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Chat Interface - Always Visible -->
+        <section class="chat-container" id="chatContainer">
+            <div class="chat-header">
+                <h2>
+                    <i class="fas fa-robot"></i>
+                    Chat with Krishi Sakhi
+                </h2>
+                <p>Ask me anything about farming in Malayalam or English</p>
+            </div>
+            <div class="chat-messages" id="chatMessages">
+                <!-- Welcome message -->
+                <div class="message message-bot">
+                    <div class="message-content">🌾 Namaste! I'm Krishi Sakhi, your AI farming assistant. How can I help you today?</div>
+                </div>
+            </div>
+            <div class="chat-input-area">
+                <button class="voice-btn" id="voiceBtn" title="Voice Input">
+                    <i class="fas fa-microphone"></i>
+                </button>
+                <input type="text" class="chat-input" id="chatInput" placeholder="Type your farming question here...">
+                <button class="chat-send-btn" id="sendBtn">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </section>
+
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <h1 class="hero-title">🌾 Krishi Sakhi</h1>
+            <p class="hero-subtitle">Your AI-Powered Personal Farming Assistant for Kerala</p>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <div class="stat-number">50+</div>
+                    <div class="stat-label">Crop Varieties</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">AI Support</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">Kerala Focused</div>
+                </div>
+            </div>
+            <div class="hero-actions">
+                <button class="btn btn-outline" onclick="showFeatures()">
+                    <i class="fas fa-star"></i>
+                    Explore Features
+                </button>
+                <button class="btn btn-primary" onclick="document.getElementById('chatInput').focus()">
+                    <i class="fas fa-arrow-up"></i>
+                    Start Asking Questions
+                </button>
+            </div>
+        </section>
+
+        <!-- Live Feature Cards -->
+        <section class="feature-grid" id="featureGrid">
+            <!-- Live Weather Card -->
+            <div class="feature-card live-card" onclick="openPage('weather')" id="weatherCard">
+                <div class="feature-icon">
+                    <i class="fas fa-cloud-sun" id="weatherIcon"></i>
+                </div>
+                <h3 class="feature-title">Live Weather</h3>
+                <div class="live-content" id="weatherContent">
+                    <div class="loading">Loading weather...</div>
+                </div>
+                <p class="feature-desc">Real-time weather for your location</p>
+            </div>
+
+            <!-- Rotating Market Card -->
+            <div class="feature-card live-card market-card" onclick="openPage('market')" id="marketCard">
+                <div class="feature-icon">
+                    <span id="marketIcon">🌾</span>
+                </div>
+                <h3 class="feature-title" id="marketTitle">Market Prices</h3>
+                <div class="live-content" id="marketContent">
+                    <div class="loading">Loading prices...</div>
+                </div>
+                <p class="feature-desc">Live rotating crop prices</p>
+            </div>
+
+            <!-- Calendar/Activity Card -->
+            <div class="feature-card live-card" onclick="openPage('calendar')" id="calendarCard">
+                <div class="feature-icon">
+                    <i class="fas fa-calendar-alt"></i>
+                </div>
+                <h3 class="feature-title">This Month</h3>
+                <div class="live-content" id="calendarContent">
+                    <div class="loading">Loading activities...</div>
+                </div>
+                <p class="feature-desc">Current farming activities</p>
+            </div>
+
+            <!-- Static Cards -->
+            <div class="feature-card" onclick="openPage('crops')">
+                <div class="feature-icon">
+                    <i class="fas fa-seedling"></i>
+                </div>
+                <h3 class="feature-title">Crop Recommendations</h3>
+                <p class="feature-desc">AI-powered suggestions based on your soil, climate, and farming conditions</p>
+            </div>
+
+            <div class="feature-card" onclick="openPage('disease')">
+                <div class="feature-icon">
+                    <i class="fas fa-bug"></i>
+                </div>
+                <h3 class="feature-title">Disease Detection</h3>
+                <p class="feature-desc">Identify and treat crop diseases with expert guidance and solutions</p>
+            </div>
+
+            <div class="feature-card" onclick="openPage('schemes')">
+                <div class="feature-icon">
+                    <i class="fas fa-hand-holding-usd"></i>
+                </div>
+                <h3 class="feature-title">Government Schemes</h3>
+                <p class="feature-desc">Information about subsidies, loans, and government support programs</p>
+            </div>
+        </section>
+
+        
+        <!-- Section Pages -->
+        <section class="section-page" id="weatherPage">
+            <h2><i class="fas fa-cloud-sun"></i> Weather Information</h2>
+            <div id="weatherPageContent">Loading weather details...</div>
+        </section>
+        
+        <section class="section-page" id="marketPage">
+            <h2><i class="fas fa-chart-line"></i> Market Prices</h2>
+            <div id="marketPageContent">Loading market data...</div>
+        </section>
+        
+        <section class="section-page" id="calendarPage">
+            <h2><i class="fas fa-calendar-alt"></i> Farming Calendar</h2>
+            <div id="calendarPageContent">Loading calendar...</div>
+        </section>
+        
+        <section class="section-page" id="cropsPage">
+            <h2><i class="fas fa-seedling"></i> Crop Recommendations</h2>
+            <div id="cropsPageContent">Loading crop recommendations...</div>
+        </section>
+        
+        <section class="section-page" id="diseasePage">
+            <h2><i class="fas fa-bug"></i> Disease Detection</h2>
+            <div id="diseasePageContent">Loading disease information...</div>
+        </section>
+        
+        <section class="section-page" id="schemesPage">
+            <h2><i class="fas fa-hand-holding-usd"></i> Government Schemes</h2>
+            <div id="schemesPageContent">Loading government schemes...</div>
+        </section>
+    </main>
+    
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h3 class="sidebar-title"><i class="fas fa-seedling"></i> Krishi Sakhi</h3>
+            <button class="sidebar-close" id="sidebarClose"><i class="fas fa-times"></i></button>
+        </div>
+        <nav>
+            <ul class="nav-list">
+                <li class="nav-item"><a href="#" class="nav-link" onclick="showHome()"><i class="fas fa-home"></i> Home</a></li>
+                <li class="nav-item"><a href="#" class="nav-link" onclick="openPage('weather')"><i class="fas fa-cloud-sun"></i> Weather</a></li>
+                <li class="nav-item"><a href="#" class="nav-link" onclick="openPage('market')"><i class="fas fa-chart-line"></i> Market Prices</a></li>
+                <li class="nav-item"><a href="#" class="nav-link" onclick="openPage('calendar')"><i class="fas fa-calendar-alt"></i> Calendar</a></li>
+                <li class="nav-item"><a href="#" class="nav-link" onclick="openPage('crops')"><i class="fas fa-seedling"></i> Crop Recommendations</a></li>
+                <li class="nav-item"><a href="#" class="nav-link" onclick="openPage('disease')"><i class="fas fa-bug"></i> Disease Detection</a></li>
+                <li class="nav-item"><a href="#" class="nav-link" onclick="openPage('schemes')"><i class="fas fa-hand-holding-usd"></i> Government Schemes</a></li>
+                <li class="nav-item"><a href="#" class="nav-link" onclick="startChat()"><i class="fas fa-comments"></i> AI Chat</a></li>
+                <li class="nav-item"><a href="#" class="nav-link" onclick="showRegistrationModal()"><i class="fas fa-user-plus"></i> Profile Settings</a></li>
+                <li class="nav-item"><a href="#" class="nav-link" onclick="toggleLanguage()"><i class="fas fa-language"></i> Language</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <!-- Registration Modal -->
+    <div class="modal" id="registrationModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">🌾 Join Krishi Sakhi</h2>
+                <p>Create your farmer profile for personalized assistance</p>
+            </div>
+            <form id="registrationForm">
+                <div class="form-group">
+                    <label class="form-label">Full Name *</label>
+                    <input type="text" class="form-input" id="farmerName" required>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Phone Number *</label>
+                        <input type="tel" class="form-input" id="farmerPhone" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">District *</label>
+                        <select class="form-select" id="farmerDistrict" required>
+                            <option value="">Select District</option>
+                            <option value="ernakulam">Ernakulam</option>
+                            <option value="thrissur">Thrissur</option>
+                            <option value="palakkad">Palakkad</option>
+                            <option value="kozhikode">Kozhikode</option>
+                            <option value="thiruvananthapuram">Thiruvananthapuram</option>
+                            <option value="kottayam">Kottayam</option>
+                            <option value="wayanad">Wayanad</option>
+                            <option value="idukki">Idukki</option>
+                            <option value="kannur">Kannur</option>
+                            <option value="kasaragod">Kasaragod</option>
+                            <option value="kollam">Kollam</option>
+                            <option value="pathanamthitta">Pathanamthitta</option>
+                            <option value="alappuzha">Alappuzha</option>
+                            <option value="malappuram">Malappuram</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Farm Location/Village</label>
+                    <input type="text" class="form-input" id="farmerLocation">
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Farm Size (acres)</label>
+                        <input type="number" class="form-input" id="farmSize" step="0.1" min="0">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Soil Type</label>
+                        <select class="form-select" id="soilType">
+                            <option value="">Select Soil Type</option>
+                            <option value="laterite">Laterite Soil</option>
+                            <option value="alluvial">Alluvial Soil</option>
+                            <option value="black">Black Soil</option>
+                            <option value="red">Red Soil</option>
+                            <option value="coastal">Coastal Sandy Soil</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Primary Crops</label>
+                    <div class="checkbox-grid">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="crop-rice" value="rice">
+                            <label for="crop-rice">Rice</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="crop-coconut" value="coconut">
+                            <label for="crop-coconut">Coconut</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="crop-pepper" value="pepper">
+                            <label for="crop-pepper">Pepper</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="crop-cardamom" value="cardamom">
+                            <label for="crop-cardamom">Cardamom</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="crop-banana" value="banana">
+                            <label for="crop-banana">Banana</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="crop-vegetables" value="vegetables">
+                            <label for="crop-vegetables">Vegetables</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Irrigation Type</label>
+                        <select class="form-select" id="irrigationType">
+                            <option value="rainfed">Rain-fed</option>
+                            <option value="drip">Drip Irrigation</option>
+                            <option value="sprinkler">Sprinkler</option>
+                            <option value="flood">Flood Irrigation</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Language Preference</label>
+                        <select class="form-select" id="languagePreference">
+                            <option value="en">English</option>
+                            <option value="ml">മലയാളം (Malayalam)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div style="display: flex; gap: 1rem; justify-content: center; margin-top: 2rem;">
+                    <button type="button" class="btn btn-outline" onclick="closeRegistrationModal()">Skip for Now</button>
+                    <button type="submit" class="btn btn-primary" id="submitBtn">
+                        <i class="fas fa-check"></i>
+                        Complete Registration
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Global variables
+        const BACKEND_URL = 'http://localhost:5000';
+        let currentUser = null;
+        let currentLanguage = 'en';
+        let recognition = null;
+        let isListening = false;
+
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeApp();
+        });
+
+        function initializeApp() {
+            checkBackendConnection();
+            setupEventListeners();
+            setupSpeechRecognition();
+            loadUserData();
+            startLiveCards(); // Start live card updates
+            
+            // Check connection every 30 seconds
+            setInterval(checkBackendConnection, 30000);
+        }
+
+        async function checkBackendConnection() {
+            const statusIndicator = document.getElementById('statusIndicator');
+            const statusText = document.getElementById('statusText');
+            
+            try {
+                statusIndicator.className = 'status-indicator status-checking';
+                statusText.textContent = 'Checking...';
+                
+                const response = await fetch(`${BACKEND_URL}/api/backend/health`, {
+                    method: 'GET',
+                    timeout: 5000
+                });
+                
+                if (response.ok) {
+                    statusIndicator.className = 'status-indicator status-connected';
+                    statusText.textContent = 'Connected';
+                } else {
+                    throw new Error('Backend not responding');
+                }
+            } catch (error) {
+                statusIndicator.className = 'status-indicator status-disconnected';
+                statusText.textContent = 'Offline';
+                console.warn('Backend connection failed:', error);
+            }
+        }
+
+        function setupEventListeners() {
+            // Header buttons
+            document.getElementById('languageToggle').addEventListener('click', toggleLanguage);
+            document.getElementById('registerBtn').addEventListener('click', showRegistrationModal);
+            document.getElementById('statusIndicator').addEventListener('click', checkBackendConnection);
+            document.getElementById('settingsBtn').addEventListener('click', toggleSidebar);
+            document.getElementById('sidebarClose').addEventListener('click', closeSidebar);
+            
+            // Chat
+            document.getElementById('sendBtn').addEventListener('click', sendMessage);
+            document.getElementById('chatInput').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') sendMessage();
+            });
+            document.getElementById('voiceBtn').addEventListener('click', toggleVoiceRecording);
+            
+            // Registration form
+            document.getElementById('registrationForm').addEventListener('submit', handleRegistration);
+        }
+
+        function setupSpeechRecognition() {
+            if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+                const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+                recognition = new SpeechRecognition();
+                recognition.continuous = false;
+                recognition.interimResults = false;
+                recognition.lang = currentLanguage === 'ml' ? 'ml-IN' : 'en-IN';
+
+                recognition.onstart = () => {
+                    isListening = true;
+                    document.getElementById('voiceBtn').classList.add('recording');
+                };
+
+                recognition.onresult = (event) => {
+                    const transcript = event.results[0][0].transcript;
+                    document.getElementById('chatInput').value = transcript;
+                    sendMessage();
+                };
+
+                recognition.onend = () => {
+                    isListening = false;
+                    document.getElementById('voiceBtn').classList.remove('recording');
+                };
+
+                recognition.onerror = () => {
+                    isListening = false;
+                    document.getElementById('voiceBtn').classList.remove('recording');
+                    showNotification('Voice recognition error. Please try again.', 'error');
+                };
+            }
+        }
+
+        function toggleVoiceRecording() {
+            if (!recognition) {
+                showNotification('Speech recognition not supported in your browser.', 'warning');
+                return;
+            }
+
+            if (isListening) {
+                recognition.stop();
+            } else {
+                recognition.start();
+            }
+        }
+
+        function toggleLanguage() {
+            currentLanguage = currentLanguage === 'en' ? 'ml' : 'en';
+            localStorage.setItem('krishiSakhiLanguage', currentLanguage);
+            updateLanguageInterface();
+            
+            if (recognition) {
+                recognition.lang = currentLanguage === 'ml' ? 'ml-IN' : 'en-IN';
+            }
+        }
+
+        function updateLanguageInterface() {
+            const languageText = document.getElementById('languageText');
+            const chatInput = document.getElementById('chatInput');
+            
+            if (currentLanguage === 'en') {
+                languageText.textContent = 'മലയാളം';
+                chatInput.placeholder = 'Type your farming question here...';
+                document.title = 'Krishi Sakhi - AI Farming Assistant';
+            } else {
+                languageText.textContent = 'English';
+                chatInput.placeholder = 'കൃഷിയെക്കുറിച്ച് ചോദിക്കാം...';
+                document.title = 'കൃഷി സഖി - AI കൃഷി സഹായി';
+            }
+        }
+        
+        // Live Cards Functionality
+        function startLiveCards() {
+            updateLiveWeather();
+            updateRotatingMarket();
+            updateCalendarActivities();
+            
+            // Update weather every 5 minutes
+            setInterval(updateLiveWeather, 5 * 60 * 1000);
+            
+            // Rotate market prices every 10 seconds
+            setInterval(updateRotatingMarket, 10000);
+            
+            // Update calendar monthly
+            setInterval(updateCalendarActivities, 60 * 60 * 1000);
+        }
+        
+        async function updateLiveWeather() {
+            try {
+                const response = await fetch(`${BACKEND_URL}/api/weather/live?farmer_id=${currentUser?.id}`);
+                const weather = await response.json();
+                
+                if (response.ok) {
+                    const weatherContent = document.getElementById('weatherContent');
+                    const weatherIcon = document.getElementById('weatherIcon');
+                    
+                    // Update weather icon based on conditions
+                    const iconMap = {
+                        'sunny': 'fas fa-sun',
+                        'partly cloudy': 'fas fa-cloud-sun', 
+                        'cloudy': 'fas fa-cloud',
+                        'overcast': 'fas fa-cloud',
+                        'light rain': 'fas fa-cloud-rain',
+                        'rain': 'fas fa-cloud-showers-heavy'
+                    };
+                    
+                    const iconClass = iconMap[weather.conditions.toLowerCase()] || 'fas fa-cloud-sun';
+                    weatherIcon.className = iconClass;
+                    
+                    weatherContent.innerHTML = `
+                        <div><strong>${weather.location}</strong></div>
+                        <div>${weather.temperature} | ${weather.conditions}</div>
+                        <div style="font-size: 0.8em; margin-top: 4px;">
+                            💡 ${weather.farming_tip}
+                        </div>
+                    `;
+                } else {
+                    throw new Error('Weather API failed');
+                }
+            } catch (error) {
+                console.error('Weather update failed:', error);
+                document.getElementById('weatherContent').innerHTML = `
+                    <div>Weather Unavailable</div>
+                    <div style="font-size: 0.8em;">Check connection</div>
+                `;
+            }
+        }
+        
+        async function updateRotatingMarket() {
+            try {
+                const response = await fetch(`${BACKEND_URL}/api/market/rotating`);
+                const market = await response.json();
+                
+                if (response.ok) {
+                    const marketContent = document.getElementById('marketContent');
+                    const marketIcon = document.getElementById('marketIcon');
+                    const marketTitle = document.getElementById('marketTitle');
+                    
+                    // Update with rotating crop data
+                    marketIcon.textContent = market.icon;
+                    marketTitle.textContent = market.crop;
+                    
+                    const trendEmoji = {
+                        'rising': '📈',
+                        'declining': '📉', 
+                        'stable': '➡️'
+                    };
+                    
+                    marketContent.innerHTML = `
+                        <div><strong>${market.price}</strong></div>
+                        <div>${market.unit} | ${market.variety}</div>
+                        <div style="font-size: 0.8em; margin-top: 4px;">
+                            ${trendEmoji[market.trend]} ${market.trend} | ${market.last_updated}
+                        </div>
+                    `;
+                } else {
+                    throw new Error('Market API failed');
+                }
+            } catch (error) {
+                console.error('Market update failed:', error);
+                document.getElementById('marketContent').innerHTML = `
+                    <div>Market Data Unavailable</div>
+                    <div style="font-size: 0.8em;">Try again later</div>
+                `;
+            }
+        }
+        
+        async function updateCalendarActivities() {
+            try {
+                const response = await fetch(`${BACKEND_URL}/api/calendar/suggestions`);
+                const calendar = await response.json();
+                
+                if (response.ok) {
+                    const calendarContent = document.getElementById('calendarContent');
+                    
+                    const activities = calendar.activities.slice(0, 3); // Show top 3
+                    calendarContent.innerHTML = `
+                        <div><strong>${calendar.month}</strong></div>
+                        <div style="font-size: 0.8em; margin-top: 4px;">
+                            ${activities.map(activity => `• ${activity}`).join('<br>')}
+                        </div>
+                    `;
+                } else {
+                    throw new Error('Calendar API failed');
+                }
+            } catch (error) {
+                console.error('Calendar update failed:', error);
+                document.getElementById('calendarContent').innerHTML = `
+                    <div>Calendar Unavailable</div>
+                    <div style="font-size: 0.8em;">Seasonal activities</div>
+                `;
+            }
+        }
+
+        function loadUserData() {
+            const userData = localStorage.getItem('krishiSakhiUser');
+            const savedLanguage = localStorage.getItem('krishiSakhiLanguage');
+            
+            if (userData) {
+                currentUser = JSON.parse(userData);
+                personalizeInterface();
+            }
+            
+            if (savedLanguage) {
+                currentLanguage = savedLanguage;
+                updateLanguageInterface();
+            }
+        }
+
+        function personalizeInterface() {
+            if (currentUser) {
+                const registerBtn = document.getElementById('registerBtn');
+                registerBtn.innerHTML = `<i class="fas fa-user"></i><span>Welcome ${currentUser.name}</span>`;
+            }
+        }
+
+        function showRegistrationModal() {
+            document.getElementById('registrationModal').classList.add('show');
+        }
+
+        function closeRegistrationModal() {
+            document.getElementById('registrationModal').classList.remove('show');
+        }
+
+        async function handleRegistration(e) {
+            e.preventDefault();
+            
+            const submitBtn = document.getElementById('submitBtn');
+            const originalContent = submitBtn.innerHTML;
+            
+            try {
+                submitBtn.innerHTML = '<div class="loading"></div> Registering...';
+                submitBtn.disabled = true;
+                
+                const userData = {
+                    name: document.getElementById('farmerName').value,
+                    phone: document.getElementById('farmerPhone').value,
+                    district: document.getElementById('farmerDistrict').value,
+                    location: document.getElementById('farmerLocation').value,
+                    land_size: parseFloat(document.getElementById('farmSize').value) || 0,
+                    soil_type: document.getElementById('soilType').value,
+                    irrigation_type: document.getElementById('irrigationType').value,
+                    language_preference: document.getElementById('languagePreference').value,
+                    primary_crops: getSelectedCrops()
+                };
+                
+                const response = await fetch(`${BACKEND_URL}/api/farmer/register`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(userData)
+                });
+                
+                const result = await response.json();
+                
+                if (response.ok) {
+                    currentUser = { ...userData, id: result.farmer?.id };
+                    localStorage.setItem('krishiSakhiUser', JSON.stringify(currentUser));
+                    closeRegistrationModal();
+                    personalizeInterface();
+                    showNotification('Registration successful! Welcome to Krishi Sakhi!', 'success');
+                    
+                    // Start chat with welcome message
+                    startChat();
+                    addBotMessage(`Hello ${userData.name}! 🌾 Welcome to Krishi Sakhi. I'm here to help you with all your farming needs. What would you like to know?`);
+                } else {
+                    throw new Error(result.error || 'Registration failed');
+                }
+            } catch (error) {
+                showNotification('Registration failed. Please try again.', 'error');
+                console.error('Registration error:', error);
+            } finally {
+                submitBtn.innerHTML = originalContent;
+                submitBtn.disabled = false;
+            }
+        }
+
+        function getSelectedCrops() {
+            const crops = [];
+            document.querySelectorAll('input[type="checkbox"]:checked').forEach(checkbox => {
+                crops.push(checkbox.value);
+            });
+            return crops;
+        }
+
+        function startChat(context = '') {
+            // Show main content and hide pages
+            showMainContent();
+            document.getElementById('chatContainer').scrollIntoView({ behavior: 'smooth' });
+            
+            if (context) {
+                const contextMessages = {
+                    weather: "What's the current weather forecast for farming?",
+                    crops: "Recommend the best crops for my farm conditions",
+                    disease: "Help me identify and treat crop diseases",
+                    market: "What are the current market prices for crops?",
+                    calendar: "Show me the farming calendar for this month",
+                    schemes: "Tell me about government schemes for farmers"
+                };
+                
+                if (contextMessages[context]) {
+                    document.getElementById('chatInput').value = contextMessages[context];
+                    document.getElementById('chatInput').focus();
+                    // Auto-send the context message
+                    setTimeout(() => sendMessage(), 500);
+                }
+            }
+            
+            closeSidebar();
+        }
+
+        function showFeatures() {
+            showMainContent();
+            document.getElementById('featureGrid').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // This function is now defined below with enhanced features
+
+        function addUserMessage(message) {
+            const chatMessages = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message message-user';
+            messageDiv.innerHTML = `<div class="message-content">${message}</div>`;
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function addBotMessage(message) {
+            const chatMessages = document.getElementById('chatMessages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message message-bot';
+            messageDiv.innerHTML = `<div class="message-content">${formatMessage(message)}</div>`;
+            chatMessages.appendChild(messageDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function formatMessage(message) {
+            return message
+                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                .replace(/\*(.*?)\*/g, '<em>$1</em>')
+                .replace(/\n/g, '<br>');
+        }
+
+        function showTypingIndicator() {
+            const chatMessages = document.getElementById('chatMessages');
+            const typingDiv = document.createElement('div');
+            typingDiv.className = 'typing-indicator';
+            typingDiv.id = 'typingIndicator';
+            typingDiv.innerHTML = `
+                <div class="typing-dots">
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                </div>
+                <span>Krishi Sakhi is thinking...</span>
+            `;
+            chatMessages.appendChild(typingDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function hideTypingIndicator() {
+            const typingIndicator = document.getElementById('typingIndicator');
+            if (typingIndicator) {
+                typingIndicator.remove();
+            }
+        }
+
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `notification notification-${type}`;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => notification.classList.add('show'), 100);
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+                setTimeout(() => notification.remove(), 300);
+            }, 4000);
+        }
+
+        // Activity Tracker Functions
+        async function logActivity(activityType, description, cropName = '', cost = 0) {
+            if (!currentUser) {
+                showNotification('Please register to track activities', 'warning');
+                return;
+            }
+            
+            try {
+                const response = await fetch(`${BACKEND_URL}/api/activities`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        farmer_id: currentUser.id,
+                        activity_type: activityType,
+                        description: description,
+                        crop_name: cropName,
+                        cost: cost
+                    })
+                });
+                
+                const result = await response.json();
+                if (response.ok && result.success) {
+                    showNotification('Activity logged successfully!', 'success');
+                    addBotMessage(`📝 Activity logged: ${description}`);
+                } else {
+                    throw new Error(result.error || 'Failed to log activity');
+                }
+            } catch (error) {
+                console.error('Activity logging error:', error);
+                showNotification('Failed to log activity', 'error');
+            }
+        }
+        
+        async function getLastActivity() {
+            if (!currentUser) {
+                showNotification('Please register to view activities', 'warning');
+                return;
+            }
+            
+            try {
+                const response = await fetch(`${BACKEND_URL}/api/activities?farmer_id=${currentUser.id}&limit=5`);
+                const result = await response.json();
+                
+                if (response.ok && result.activities.length > 0) {
+                    const lastActivity = result.activities[0];
+                    const date = new Date(lastActivity.date_logged).toLocaleDateString();
+                    const message = `📋 **Your Recent Activities:**\n\n`
+                        + result.activities.map(activity => 
+                            `• ${activity.description} (${new Date(activity.date_logged).toLocaleDateString()})`
+                        ).join('\n');
+                    addBotMessage(message);
+                } else {
+                    addBotMessage('📋 No activities found. Start logging your farming activities!');
+                }
+            } catch (error) {
+                console.error('Activity retrieval error:', error);
+                addBotMessage('❌ Unable to retrieve activities right now.');
+            }
+        }
+        
+        // Weather Functions
+        async function getUserWeather() {
+            if (!currentUser) {
+                addBotMessage('🌤️ Please register to get weather for your location.');
+                return;
+            }
+            
+            try {
+                const response = await fetch(`${BACKEND_URL}/api/weather/user/${currentUser.id}`);
+                const result = await response.json();
+                
+                if (response.ok) {
+                    const weatherMessage = `🌤️ **Weather for ${result.location}:**\n\n` +
+                        `🌡️ Temperature: ${result.temperature} (feels like ${result.feels_like})\n` +
+                        `💧 Humidity: ${result.humidity}\n` +
+                        `☁️ Conditions: ${result.conditions}\n` +
+                        `💨 Wind: ${result.wind_speed}\n\n` +
+                        `🚜 **Farming Advice:** ${result.farming_advice}`;
+                    
+                    if (result.personalized_tips && result.personalized_tips.length > 0) {
+                        const tips = result.personalized_tips.join('\n• ');
+                        addBotMessage(weatherMessage + `\n\n💡 **Personal Tips:**\n• ${tips}`);
+                    } else {
+                        addBotMessage(weatherMessage);
+                    }
+                } else {
+                    throw new Error('Weather data unavailable');
+                }
+            } catch (error) {
+                console.error('Weather error:', error);
+                addBotMessage('🌤️ Weather service temporarily unavailable. Please try again later.');
+            }
+        }
+        
+        // Market Prices Function
+        async function getMarketPrices() {
+            try {
+                const response = await fetch(`${BACKEND_URL}/api/market-prices?farmer_id=${currentUser?.id}`);
+                const result = await response.json();
+                
+                if (response.ok) {
+                    let priceMessage = `💰 **Market Prices (${result.location}):**\n\n`;
+                    
+                    Object.values(result.prices).forEach(crop => {
+                        priceMessage += `🌾 **${crop.name}:** ${crop.current_price} ${crop.trend}\n`;
+                        priceMessage += `   📈 Change: ${crop.price_change} | Demand: ${crop.demand}\n\n`;
+                    });
+                    
+                    priceMessage += `📅 Last Updated: ${new Date(result.date).toLocaleString()}`;
+                    addBotMessage(priceMessage);
+                } else {
+                    throw new Error('Market data unavailable');
+                }
+            } catch (error) {
+                console.error('Market prices error:', error);
+                addBotMessage('💰 Market prices temporarily unavailable. Please try again later.');
+            }
+        }
+        
+        // Government Schemes Function
+        async function getGovernmentSchemes() {
+            try {
+                const response = await fetch(`${BACKEND_URL}/api/government-schemes?farmer_id=${currentUser?.id}`);
+                const result = await response.json();
+                
+                if (response.ok) {
+                    let schemesMessage = `🏛️ **Government Schemes for Farmers:**\n\n`;
+                    
+                    // Add personalized recommendations
+                    if (result.recommendations && result.recommendations.length > 0) {
+                        schemesMessage += `**Recommended for you:**\n`;
+                        result.recommendations.forEach(schemeId => {
+                            const scheme = result.schemes[schemeId];
+                            if (scheme) {
+                                schemesMessage += `✅ **${scheme.name}**\n   ${scheme.description}\n   🔗 ${scheme.official_link}\n\n`;
+                            }
+                        });
+                    }
+                    
+                    schemesMessage += `**All Available Schemes:**\n`;
+                    Object.values(result.schemes).forEach(scheme => {
+                        if (scheme.name && scheme.official_link) {
+                            schemesMessage += `• **${scheme.name}**\n   🔗 ${scheme.official_link}\n\n`;
+                        }
+                    });
+                    
+                    addBotMessage(schemesMessage);
+                } else {
+                    throw new Error('Schemes data unavailable');
+                }
+            } catch (error) {
+                console.error('Government schemes error:', error);
+                addBotMessage('🏛️ Government schemes information temporarily unavailable.');
+            }
+        }
+        
+        // Pure AI chat without command overrides
+        async function sendMessage() {
+            const chatInput = document.getElementById('chatInput');
+            const message = chatInput.value.trim();
+            
+            if (!message) return;
+            
+            addUserMessage(message);
+            chatInput.value = '';
+            
+            showTypingIndicator();
+            
+            try {
+                // Send all messages to AI chat endpoint
+                const response = await fetch(`${BACKEND_URL}/api/ai/chat`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        query: message,
+                        farmer_id: currentUser?.id,
+                        context: currentUser ? `District: ${currentUser.district}, Crops: ${currentUser.primary_crops?.join(', ')}` : '',
+                        language: currentLanguage
+                    })
+                });
+                
+                const result = await response.json();
+                
+                hideTypingIndicator();
+                
+                if (response.ok && result.success) {
+                    const botResponse = result.ai_response || "I'm here to help with your farming questions!";
+                    addBotMessage(botResponse);
+                    
+                    // Handle activity logging if user mentions farming activities
+                    if (message.toLowerCase().includes('watered') || 
+                        message.toLowerCase().includes('planted') || 
+                        message.toLowerCase().includes('harvested') ||
+                        message.toLowerCase().includes('fertilized')) {
+                        logActivity('farming', message);
+                    }
+                } else {
+                    addBotMessage("I'm sorry, I'm having trouble connecting right now. Please try again in a moment.");
+                }
+            } catch (error) {
+                console.error('Chat error:', error);
+                hideTypingIndicator();
+                addBotMessage("I'm currently offline. Please check the connection status and try again.");
+            }
+        }
+        
+        // Add some welcome messages when page loads
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                if (!currentUser && !localStorage.getItem('krishiSakhiWelcomeShown')) {
+                    showNotification('Welcome to Krishi Sakhi! Register to get personalized farming advice.', 'info');
+                    localStorage.setItem('krishiSakhiWelcomeShown', 'true');
+                }
+            }, 2000);
+        });
+        
+        // Sidebar functions
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('open');
+        }
+        
+        function closeSidebar() {
+            document.getElementById('sidebar').classList.remove('open');
+        }
+        
+        // Page navigation functions
+        function showHome() {
+            hideAllPages();
+            document.getElementById('featureGrid').scrollIntoView({ behavior: 'smooth' });
+            closeSidebar();
+        }
+        
+        function openPage(pageType) {
+            hideAllPages();
+            hideMainContent();
+            const pageName = pageType + 'Page';
+            const page = document.getElementById(pageName);
+            
+            if (page) {
+                page.classList.add('active');
+                page.scrollIntoView({ behavior: 'smooth' });
+                loadPageContent(pageType);
+            }
+            
+            closeSidebar();
+        }
+        
+        function hideAllPages() {
+            const pages = document.querySelectorAll('.section-page');
+            pages.forEach(page => page.classList.remove('active'));
+        }
+        
+        function hideMainContent() {
+            document.getElementById('featureGrid').style.display = 'none';
+            // Chat remains visible when viewing dedicated pages
+        }
+        
+        function showMainContent() {
+            hideAllPages();
+            document.getElementById('featureGrid').style.display = 'grid';
+            // Chat is always visible, no need to hide it
+        }
+        
+        // Load content for specific pages
+        async function loadPageContent(pageType) {
+            const contentElement = document.getElementById(pageType + 'PageContent');
+            
+            try {
+                switch(pageType) {
+                    case 'weather':
+                        await loadWeatherPage(contentElement);
+                        break;
+                    case 'market':
+                        await loadMarketPage(contentElement);
+                        break;
+                    case 'calendar':
+                        await loadCalendarPage(contentElement);
+                        break;
+                    case 'crops':
+                        await loadCropsPage(contentElement);
+                        break;
+                    case 'disease':
+                        await loadDiseasePage(contentElement);
+                        break;
+                    case 'schemes':
+                        await loadSchemesPage(contentElement);
+                        break;
+                }
+            } catch (error) {
+                contentElement.innerHTML = '<div>Error loading content. Please try again later.</div>';
+            }
+        }
+        
+        // Individual page loaders
+        async function loadWeatherPage(element) {
+            try {
+                const response = await fetch(`${BACKEND_URL}/api/weather/live?farmer_id=${currentUser?.id}`);
+                const weather = await response.json();
+                
+                if (response.ok) {
+                    element.innerHTML = `
+                        <div class="weather-details">
+                            <div class="weather-card">
+                                <h3>🌤️ Current Weather - ${weather.location}</h3>
+                                <div class="weather-info">
+                                    <p><strong>Temperature:</strong> ${weather.temperature}</p>
+                                    <p><strong>Conditions:</strong> ${weather.conditions}</p>
+                                    <p><strong>Humidity:</strong> ${weather.humidity || 'N/A'}</p>
+                                    <p><strong>Farming Tip:</strong> ${weather.farming_tip}</p>
+                                </div>
+                            </div>
+                            <div class="weather-forecast">
+                                <h3>📊 Weekly Farming Insights</h3>
+                                <p>Based on current weather patterns, here are recommendations for your farming activities:</p>
+                                <ul>
+                                    <li>💧 Irrigation scheduling based on humidity levels</li>
+                                    <li>🌱 Optimal planting conditions assessment</li>
+                                    <li>🦟 Pest monitoring during high humidity periods</li>
+                                    <li>🚜 Field work timing recommendations</li>
+                                </ul>
+                            </div>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                element.innerHTML = '<div>Weather data temporarily unavailable.</div>';
+            }
+        }
+        
+        async function loadMarketPage(element) {
+            element.innerHTML = `
+                <div class="market-details">
+                    <h3>💰 Current Market Prices</h3>
+                    <div class="price-grid">
+                        <div class="price-card">
+                            <h4>🌾 Rice Varieties</h4>
+                            <p>Jyothi: ₹3,000-3,200 per quintal</p>
+                            <p>Bhagya: ₹3,200-3,500 per quintal</p>
+                            <p>Uma: ₹2,900-3,100 per quintal</p>
+                        </div>
+                        <div class="price-card">
+                            <h4>🌶️ Spices</h4>
+                            <p>Black Pepper: ₹650-750 per kg</p>
+                            <p>Cardamom: ₹1,200-1,500 per kg</p>
+                            <p>Turmeric: ₹180-220 per kg</p>
+                        </div>
+                        <div class="price-card">
+                            <h4>🥥 Coconut Products</h4>
+                            <p>Coconut: ₹25-40 per nut</p>
+                            <p>Copra: ₹15,000-18,000 per quintal</p>
+                            <p>Coconut Oil: ₹180-220 per liter</p>
+                        </div>
+                    </div>
+                    <div class="market-tips">
+                        <h4>📈 Market Tips</h4>
+                        <p>• Check local mandis for the best prices</p>
+                        <p>• Quality grading significantly affects pricing</p>
+                        <p>• Seasonal demand fluctuations impact rates</p>
+                        <p>• Direct marketing can increase profit margins</p>
+                    </div>
+                </div>
+            `;
+        }
+        
+        async function loadCalendarPage(element) {
+            const currentMonth = new Date().toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+            element.innerHTML = `
+                <div class="calendar-details">
+                    <h3>📅 Farming Calendar - ${currentMonth}</h3>
+                    <div class="activity-grid">
+                        <div class="activity-card">
+                            <h4>🌱 Planting Season</h4>
+                            <ul>
+                                <li>Kharif rice transplanting (June-July)</li>
+                                <li>Vegetable seedling preparation</li>
+                                <li>Pepper cutting planting (pre-monsoon)</li>
+                            </ul>
+                        </div>
+                        <div class="activity-card">
+                            <h4>🚜 Field Operations</h4>
+                            <ul>
+                                <li>Land preparation for monsoon crops</li>
+                                <li>Drainage system maintenance</li>
+                                <li>Soil testing and amendment</li>
+                            </ul>
+                        </div>
+                        <div class="activity-card">
+                            <h4>🦟 Pest Management</h4>
+                            <ul>
+                                <li>Monitor rice blast during humid conditions</li>
+                                <li>Preventive spraying for coconut pests</li>
+                                <li>Integrated pest management practices</li>
+                            </ul>
+                        </div>
+                        <div class="activity-card">
+                            <h4>💧 Water Management</h4>
+                            <ul>
+                                <li>Monsoon water harvesting setup</li>
+                                <li>Irrigation scheduling optimization</li>
+                                <li>Drainage clearing before heavy rains</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+        
+        async function loadCropsPage(element) {
+            element.innerHTML = `
+                <div class="crops-details">
+                    <h3>🌾 Crop Recommendations for Kerala</h3>
+                    <div class="crop-categories">
+                        <div class="crop-category">
+                            <h4>🌾 Cereal Crops</h4>
+                            <div class="crop-list">
+                                <div class="crop-item">
+                                    <strong>Rice (Oryza sativa)</strong>
+                                    <p>Best varieties: Jyothi, Bhagya, Uma, Aiswarya</p>
+                                    <p>Season: Kharif (June-November), Rabi (December-April)</p>
+                                    <p>Soil: Alluvial, clay loam with good water retention</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="crop-category">
+                            <h4>🌶️ Spice Crops</h4>
+                            <div class="crop-list">
+                                <div class="crop-item">
+                                    <strong>Black Pepper (Piper nigrum)</strong>
+                                    <p>Varieties: Panniyur-1, Karimunda, Subhakara</p>
+                                    <p>Planting: Pre-monsoon (April-May), Post-monsoon (Sep-Oct)</p>
+                                    <p>Support: Standards required (Erythrina, Silver Oak)</p>
+                                </div>
+                                
+                                <div class="crop-item">
+                                    <strong>Cardamom (Elettaria cardamomum)</strong>
+                                    <p>Varieties: Malabar, Mysore, Vazhukka</p>
+                                    <p>Altitude: 600-1500m above sea level</p>
+                                    <p>Shade: 50-60% shade requirement</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="crop-category">
+                            <h4>🥥 Plantation Crops</h4>
+                            <div class="crop-list">
+                                <div class="crop-item">
+                                    <strong>Coconut (Cocos nucifera)</strong>
+                                    <p>Varieties: West Coast Tall, Chowghat Orange Dwarf</p>
+                                    <p>Spacing: 7.5m × 7.5m (175 palms/hectare)</p>
+                                    <p>Soil: Well-drained, sandy loam to clay loam</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="recommendation-tool">
+                        <h4>🎯 Personalized Recommendations</h4>
+                        <p>For personalized crop recommendations based on your specific soil type, land size, and local conditions, please chat with our AI assistant or update your farmer profile.</p>
+                        <button class="btn btn-primary" onclick="startChat('crops')">Get AI Recommendations</button>
+                    </div>
+                </div>
+            `;
+        }
+        
+        async function loadDiseasePage(element) {
+            element.innerHTML = `
+                <div class="disease-details">
+                    <h3>🦟 Crop Disease Management</h3>
+                    <div class="disease-categories">
+                        <div class="disease-category">
+                            <h4>🌾 Rice Diseases</h4>
+                            <div class="disease-item">
+                                <h5>Blast Disease</h5>
+                                <p><strong>Symptoms:</strong> Elliptical lesions on leaves, diamond-shaped spots</p>
+                                <p><strong>Management:</strong> Tricyclazole 0.6g/L, resistant varieties like Uma</p>
+                            </div>
+                            <div class="disease-item">
+                                <h5>Brown Spot</h5>
+                                <p><strong>Symptoms:</strong> Brown circular spots with yellow halo</p>
+                                <p><strong>Management:</strong> Propiconazole 0.1%, proper nutrition</p>
+                            </div>
+                        </div>
+                        
+                        <div class="disease-category">
+                            <h4>🌶️ Pepper Diseases</h4>
+                            <div class="disease-item">
+                                <h5>Quick Wilt</h5>
+                                <p><strong>Symptoms:</strong> Sudden wilting, yellowing of leaves</p>
+                                <p><strong>Management:</strong> Improve drainage, Metalaxyl+Mancozeb 2g/L</p>
+                            </div>
+                        </div>
+                        
+                        <div class="disease-category">
+                            <h4>🥥 Coconut Diseases</h4>
+                            <div class="disease-item">
+                                <h5>Root Wilt</h5>
+                                <p><strong>Symptoms:</strong> Yellowing of fronds, reduced nut yield</p>
+                                <p><strong>Management:</strong> Improve drainage, organic matter addition</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="disease-prevention">
+                        <h4>🛡️ Prevention Strategies</h4>
+                        <ul>
+                            <li>🌱 Use disease-resistant varieties</li>
+                            <li>💧 Maintain proper drainage and irrigation</li>
+                            <li>🍃 Ensure good air circulation in crops</li>
+                            <li>🔄 Practice crop rotation where possible</li>
+                            <li>🧪 Regular soil testing and nutrient management</li>
+                            <li>🔍 Early detection and monitoring</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="disease-consultation">
+                        <h4>💬 Expert Consultation</h4>
+                        <p>For specific disease identification and treatment recommendations, chat with our AI assistant with detailed descriptions or images of the affected crops.</p>
+                        <button class="btn btn-primary" onclick="startChat('disease')">Consult AI Expert</button>
+                    </div>
+                </div>
+            `;
+        }
+        
+        async function loadSchemesPage(element) {
+            element.innerHTML = `
+                <div class="schemes-details">
+                    <h3>🏛️ Government Schemes for Farmers</h3>
+                    
+                    <div class="scheme-categories">
+                        <div class="scheme-category">
+                            <h4>💰 Direct Benefit Transfer</h4>
+                            <div class="scheme-item">
+                                <h5>PM-KISAN (Pradhan Mantri Kisan Samman Nidhi)</h5>
+                                <p><strong>Benefit:</strong> ₹6,000 annually in 3 installments</p>
+                                <p><strong>Eligibility:</strong> Small & marginal farmers with up to 2 hectares</p>
+                                <p><strong>Application:</strong> <a href="https://pmkisan.gov.in" target="_blank">pmkisan.gov.in</a></p>
+                            </div>
+                        </div>
+                        
+                        <div class="scheme-category">
+                            <h4>🛡️ Insurance Schemes</h4>
+                            <div class="scheme-item">
+                                <h5>PMFBY (Pradhan Mantri Fasal Bima Yojana)</h5>
+                                <p><strong>Coverage:</strong> Crop loss due to natural calamities</p>
+                                <p><strong>Premium:</strong> 2% for Kharif, 1.5% for Rabi crops</p>
+                                <p><strong>Application:</strong> Through banks or CSCs</p>
+                            </div>
+                        </div>
+                        
+                        <div class="scheme-category">
+                            <h4>💳 Credit Schemes</h4>
+                            <div class="scheme-item">
+                                <h5>Kisan Credit Card (KCC)</h5>
+                                <p><strong>Benefit:</strong> Easy agricultural loans at 7% interest</p>
+                                <p><strong>Eligibility:</strong> All farmers with valid land documents</p>
+                                <p><strong>Application:</strong> Any nationalized bank</p>
+                            </div>
+                        </div>
+                        
+                        <div class="scheme-category">
+                            <h4>🌾 Kerala State Schemes</h4>
+                            <div class="scheme-item">
+                                <h5>Subhiksha Kerala</h5>
+                                <p><strong>Objective:</strong> Organic farming promotion</p>
+                                <p><strong>Support:</strong> Input subsidies and technical assistance</p>
+                            </div>
+                            
+                            <div class="scheme-item">
+                                <h5>Coconut Development Board Schemes</h5>
+                                <p><strong>Support:</strong> Coconut farming modernization</p>
+                                <p><strong>Benefits:</strong> Seedling subsidy, equipment support</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="scheme-application">
+                        <h4>📋 How to Apply</h4>
+                        <ol>
+                            <li>🆔 Gather required documents (Aadhaar, land records, bank details)</li>
+                            <li>🌐 Visit respective scheme websites or local offices</li>
+                            <li>📝 Fill application forms completely</li>
+                            <li>📤 Submit with supporting documents</li>
+                            <li>📱 Track application status online</li>
+                        </ol>
+                    </div>
+                    
+                    <div class="scheme-consultation">
+                        <h4>💬 Need Help?</h4>
+                        <p>For detailed information about eligibility, application process, or scheme-specific queries, chat with our AI assistant.</p>
+                        <button class="btn btn-primary" onclick="startChat('schemes')">Ask About Schemes</button>
+                    </div>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>

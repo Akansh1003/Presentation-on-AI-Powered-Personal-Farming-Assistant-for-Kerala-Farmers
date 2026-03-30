@@ -1,0 +1,405 @@
+{
+  "soil_types": {
+    "red_soil": {
+      "description": "Red soil (laterite) covers about 65% of Kerala. Rich in iron oxide, giving it the characteristic red color.",
+      "characteristics": {
+        "ph": "5.5-6.8 (acidic to slightly acidic)",
+        "texture": "Well-drained, porous, good aeration",
+        "organic_matter": "Low to medium (1-3%)",
+        "nutrients": "Low in nitrogen, phosphorus, and potassium but rich in iron and aluminum"
+      },
+      "best_crops": [
+        "coconut - thrives in well-drained laterite",
+        "cashew - adapted to poor, acidic soils", 
+        "tapioca - grows well in marginal laterite soils",
+        "rubber - prefers well-drained red soils",
+        "pepper - when mixed with organic matter"
+      ],
+      "why_suitable": {
+        "coconut": "Red soil provides excellent drainage preventing root rot, and coconut roots can access nutrients from deeper layers. The porous nature allows good root penetration.",
+        "cashew": "Cashew is naturally adapted to poor, acidic soils and can fix nitrogen, improving soil fertility over time.",
+        "tapioca": "Tapioca can tolerate acidic conditions and low fertility, making it ideal for marginal red soils."
+      },
+      "management": "Add lime to reduce acidity, incorporate organic matter like compost and green manure, apply phosphorus fertilizers as red soil fixes phosphorus."
+    },
+    "alluvial_soil": {
+      "description": "Found in river valleys and coastal plains, formed by river deposits. Very fertile and suitable for intensive agriculture.",
+      "characteristics": {
+        "ph": "6.5-7.5 (neutral to slightly alkaline)",
+        "texture": "Clay loam to silty clay, good water retention",
+        "organic_matter": "Medium to high (2-5%)",
+        "nutrients": "Rich in nitrogen, phosphorus, potassium, and micronutrients"
+      },
+      "best_crops": [
+        "rice - requires water retention capacity",
+        "vegetables - need rich, fertile soil",
+        "banana - thrives in fertile alluvium",
+        "sugarcane - requires nutrient-rich soil",
+        "coconut (coastal varieties)"
+      ],
+      "why_suitable": {
+        "rice": "Alluvial soil has excellent water retention capacity essential for paddy cultivation, plus high fertility supports vigorous growth.",
+        "vegetables": "High nutrient content and good moisture retention provide ideal conditions for vegetable growth and development.",
+        "banana": "Rich fertility and good water retention support banana's high nutrient and water requirements."
+      },
+      "management": "Maintain organic matter through crop residues, avoid over-irrigation to prevent waterlogging, practice crop rotation to maintain fertility."
+    },
+    "black_soil": {
+      "description": "Found in some parts of Kerala, rich in clay content and highly fertile.",
+      "characteristics": {
+        "ph": "7.0-8.5 (neutral to alkaline)",
+        "texture": "Heavy clay, swells when wet, cracks when dry",
+        "organic_matter": "Medium (2-4%)",
+        "nutrients": "Very rich in potassium, moderate in phosphorus and nitrogen"
+      },
+      "best_crops": ["cotton", "groundnut", "pulses", "millets"],
+      "management": "Improve drainage, add organic matter to improve structure, avoid working when too wet or too dry."
+    }
+  },
+  "major_crops": {
+    "rice": {
+      "varieties": {
+        "jyothi": {
+          "duration": "110-115 days",
+          "yield": "5-6 tonnes/hectare",
+          "characteristics": "High yielding, short duration, suitable for double cropping",
+          "best_season": "Kharif (June-July sowing)"
+        },
+        "bhagya": {
+          "duration": "125-130 days", 
+          "yield": "4-5 tonnes/hectare",
+          "characteristics": "Aromatic, premium quality, good cooking quality",
+          "best_season": "Kharif, good for export market"
+        },
+        "uma": {
+          "duration": "120-125 days",
+          "yield": "4.5-5.5 tonnes/hectare", 
+          "characteristics": "Pest resistant, especially to brown planthopper",
+          "best_season": "Both Kharif and Rabi"
+        },
+        "ir_64": {
+          "duration": "115-120 days",
+          "yield": "5-7 tonnes/hectare",
+          "characteristics": "High yielding hybrid, good grain quality",
+          "best_season": "Kharif, requires good management"
+        }
+      },
+      "cultivation_practices": {
+        "land_preparation": "Deep ploughing followed by puddling to create impermeable layer. Level the field properly for uniform water distribution.",
+        "nursery_management": "Use 40kg seeds per hectare. Raise seedlings in well-drained nursery beds. Transplant 20-25 day old seedlings.",
+        "transplanting": "Plant 2-3 seedlings per hill at 20x15cm spacing. Maintain 2-3cm water depth during transplanting.",
+        "water_management": "Maintain 5-10cm water depth during vegetative stage. Drain 10 days before harvest.",
+        "weed_management": "Use pre-emergence herbicide or manual weeding at 20 and 40 days after transplanting."
+      },
+      "fertilizer_schedule": {
+        "organic": "Apply 10-15 tonnes FYM or compost per hectare before final ploughing",
+        "npk": "90:45:45 kg NPK per hectare",
+        "application": {
+          "basal": "Full phosphorus, potassium and 50% nitrogen as basal",
+          "first_split": "25% nitrogen at tillering stage (25-30 days)",
+          "second_split": "25% nitrogen at panicle initiation (50-55 days)"
+        }
+      },
+      "pest_diseases": {
+        "blast": {
+          "symptoms": "Diamond-shaped lesions on leaves with brown borders and gray centers. Neck blast causes panicle to break.",
+          "management": "Use resistant varieties like Uma. Apply Tricyclazole 0.6g/L water. Avoid excessive nitrogen.",
+          "prevention": "Maintain proper spacing, avoid water stress, use balanced fertilization"
+        },
+        "brown_spot": {
+          "symptoms": "Circular brown spots on leaves with yellow halos. Severe infection causes leaf drying.",
+          "management": "Spray Propiconazole 0.1% or Mancozeb 0.2%. Improve soil fertility.",
+          "prevention": "Use certified seeds, maintain proper nutrition especially potassium"
+        },
+        "stem_borer": {
+          "symptoms": "Dead hearts in vegetative stage, white ears at reproductive stage",
+          "management": "Use pheromone traps, release egg parasitoid Trichogramma. Apply Cartap hydrochloride 4G granules.",
+          "prevention": "Avoid staggered planting, remove stubbles, use light traps"
+        }
+      },
+      "harvest_storage": {
+        "harvesting": "Harvest when 80% grains turn golden yellow. Cut close to ground, dry properly to 14% moisture.",
+        "post_harvest": "Thresh immediately, clean and dry grains to 14% moisture for safe storage",
+        "storage": "Store in moisture-proof containers, use neem leaves to prevent pest damage"
+      }
+    },
+    "coconut": {
+      "varieties": {
+        "west_coast_tall": {
+          "bearing_age": "6-8 years",
+          "yield": "60-80 nuts/year",
+          "characteristics": "Traditional tall variety, drought tolerant, long productive life",
+          "suitable_areas": "Coastal areas, well-drained laterite soils"
+        },
+        "chowghat_orange_dwarf": {
+          "bearing_age": "3-4 years", 
+          "yield": "150-180 nuts/year",
+          "characteristics": "Early bearing, high yielding, orange colored fruits",
+          "suitable_areas": "Fertile soils, good irrigation facilities"
+        },
+        "malayan_dwarf": {
+          "bearing_age": "3-4 years",
+          "yield": "120-150 nuts/year", 
+          "characteristics": "Compact size, good for tender nut production",
+          "suitable_areas": "Home gardens, small holdings"
+        }
+      },
+      "cultivation_practices": {
+        "planting": "Plant during pre-monsoon (May-June) or post-monsoon (September-October). Dig pits 1x1x1m, fill with topsoil and organic manure.",
+        "spacing": "7.5x7.5m triangular system gives 175 palms/hectare. 8x8m gives 156 palms/hectare.",
+        "irrigation": "Provide 40-50 liters water per palm during dry months. Drip irrigation is most efficient.",
+        "intercropping": "Grow pepper, nutmeg, cocoa, vegetables between coconut palms for additional income"
+      },
+      "fertilizer_program": {
+        "young_palms": "Apply 0.5kg NPK + 20kg organic manure annually for first 3 years",
+        "bearing_palms": "Apply NPK 1.3:0.32:1.2 kg + 50kg organic manure per palm annually",
+        "micronutrients": "Apply 50g each of borax and zinc sulphate per palm annually"
+      },
+      "pest_diseases": {
+        "rhinoceros_beetle": {
+          "symptoms": "V-shaped cuts on fronds, boring holes in growing point",
+          "management": "Use pheromone traps, hook out grubs from breeding sites, apply Beauveria bassiana",
+          "prevention": "Remove decaying organic matter, avoid fresh manure application"
+        },
+        "red_palm_weevil": {
+          "symptoms": "Yellowing of crown leaves, oozing of brown liquid from trunk",
+          "management": "Use pheromone traps, systemic insecticide injection, remove and destroy affected palms",
+          "prevention": "Avoid injuries to palm, regular inspection, quarantine measures"
+        },
+        "root_wilt": {
+          "symptoms": "Yellowing and drooping of outer leaves, reduction in nut yield",
+          "management": "Improve drainage, apply Aureofungin 2g + 200g neem cake per palm",
+          "prevention": "Plant resistant varieties, ensure proper drainage, avoid waterlogging"
+        }
+      }
+    },
+    "pepper": {
+      "varieties": {
+        "panniyur_1": {
+          "yield": "3-4 kg dried pepper/vine",
+          "characteristics": "High yielding, bold berries, suitable for high density planting",
+          "maturity": "Berries mature in 6-8 months after flowering"
+        },
+        "karimunda": {
+          "yield": "2-3 kg dried pepper/vine", 
+          "characteristics": "Traditional variety, very bold berries, excellent quality",
+          "special_features": "Premium quality for export markets"
+        },
+        "subhakara": {
+          "yield": "2.5-3.5 kg dried pepper/vine",
+          "characteristics": "Disease resistant especially to quick wilt",
+          "suitable_areas": "Areas with quick wilt problem"
+        }
+      },
+      "cultivation_practices": {
+        "planting": "Plant during monsoon onset (May-June) with good support trees like arecanut or coconut",
+        "support_systems": "Use live supports (arecanut, coconut) or dead supports (concrete/wooden poles)",
+        "spacing": "2.5-3m between vines when using live supports",
+        "training": "Train main vine up the support, allow 4-6 lateral branches per node"
+      },
+      "soil_requirements": {
+        "type": "Well-drained, organic-rich soils with good depth",
+        "ph": "6.0-7.5 optimal range",
+        "drainage": "Essential - pepper cannot tolerate waterlogging",
+        "organic_matter": "High organic matter content (>3%) preferred"
+      },
+      "pest_diseases": {
+        "quick_wilt": {
+          "cause": "Phytophthora capsici fungus",
+          "symptoms": "Sudden yellowing and wilting of leaves, vine death within days",
+          "management": "Improve drainage, apply Metalaxyl + Mancozeb 2g/L, use resistant varieties",
+          "prevention": "Plant on well-drained sites, avoid waterlogging, use disease-free planting material"
+        },
+        "anthracnose": {
+          "cause": "Colletotrichum species",
+          "symptoms": "Dark brown spots on leaves and spikes, premature fruit drop",
+          "management": "Spray Copper oxychloride 3g/L, improve air circulation",
+          "prevention": "Avoid overhead irrigation, maintain proper spacing"
+        },
+        "pollu_beetle": {
+          "symptoms": "Boring holes in tender shoots and spikes",
+          "management": "Use pheromone traps, spray Quinalphos 0.05% during flowering",
+          "prevention": "Remove and destroy affected plant parts, maintain field sanitation"
+        }
+      }
+    },
+    "banana": {
+      "varieties": {
+        "nendran": {
+          "type": "Cooking banana",
+          "characteristics": "Large fruits, excellent for chips and traditional dishes",
+          "yield": "25-30 kg/plant",
+          "market_value": "Premium variety, high demand"
+        },
+        "robusta": {
+          "type": "Dessert banana (Poovan)",
+          "characteristics": "Sweet, aromatic, good keeping quality",
+          "yield": "15-20 kg/plant", 
+          "export_potential": "Good export variety"
+        },
+        "red_banana": {
+          "type": "Dessert banana",
+          "characteristics": "Red skin, sweet flesh, medicinal properties",
+          "yield": "12-18 kg/plant",
+          "special_market": "Health-conscious consumers"
+        }
+      },
+      "cultivation_practices": {
+        "planting": "Plant healthy suckers during monsoon onset",
+        "spacing": "2x2m for tall varieties, 1.8x1.8m for dwarf varieties",
+        "pit_preparation": "Dig 60x60x60cm pits, fill with topsoil and organic manure",
+        "water_management": "Requires consistent moisture, mulching helps retain moisture"
+      },
+      "pest_diseases": {
+        "panama_wilt": {
+          "cause": "Fusarium oxysporum",
+          "symptoms": "Yellowing of older leaves progressing upward, plant collapse",
+          "management": "Use resistant varieties, soil solarization, biocontrol agents",
+          "prevention": "Avoid infected planting material, practice crop rotation"
+        },
+        "sigatoka_leaf_spot": {
+          "symptoms": "Small dark spots on leaves enlarging to form streaks",
+          "management": "Remove affected leaves, spray Propiconazole 0.1%",
+          "prevention": "Improve air circulation, avoid overhead irrigation"
+        }
+      }
+    }
+  },
+  "integrated_pest_management": {
+    "principles": "Combination of cultural, biological, and chemical methods to manage pests economically and environmentally safely",
+    "cultural_methods": {
+      "crop_rotation": "Break pest life cycles by rotating with non-host crops",
+      "resistant_varieties": "Use varieties with natural resistance to pests and diseases", 
+      "field_sanitation": "Remove crop residues and alternate hosts",
+      "proper_spacing": "Maintain adequate spacing for good air circulation",
+      "timely_operations": "Proper timing of sowing, irrigation, and harvesting"
+    },
+    "biological_methods": {
+      "beneficial_insects": "Encourage natural predators like ladybugs, parasitic wasps",
+      "biocontrol_agents": "Use Trichoderma for soil-borne diseases, Bacillus thuringiensis for caterpillars",
+      "botanical_pesticides": "Neem oil, garlic-chili extract, tobacco decoction",
+      "pheromone_traps": "Use sex pheromones to trap and monitor pest populations"
+    },
+    "chemical_methods": {
+      "selective_pesticides": "Use pesticides that target specific pests while preserving beneficials",
+      "resistance_management": "Rotate different chemical groups to prevent resistance",
+      "safety_measures": "Use protective equipment, follow label instructions, observe pre-harvest intervals",
+      "integrated_approach": "Use chemicals only when other methods are insufficient"
+    }
+  },
+  "organic_farming": {
+    "principles": "Farming without synthetic chemicals, maintaining soil health and biodiversity",
+    "soil_health": {
+      "organic_matter": "Maintain 3-5% organic matter through compost, green manure, crop residues",
+      "composting": "Prepare compost from farm wastes, kitchen scraps, and animal manure",
+      "green_manuring": "Grow leguminous crops like cowpea, sunhemp during off-season",
+      "vermicomposting": "Use earthworms to convert organic waste into high-quality compost"
+    },
+    "pest_management": {
+      "neem_products": "Neem oil (3-5ml/L), neem cake (200g/plant), neem seed powder",
+      "organic_sprays": "Tobacco decoction, garlic-chili spray, fermented buttermilk spray",
+      "trap_crops": "Plant marigold, mustard around main crops to attract and trap pests",
+      "companion_planting": "Grow pest-repelling plants like basil, mint with main crops"
+    },
+    "certification": {
+      "process": "3-year conversion period, third-party certification, documentation",
+      "benefits": "Premium prices, export opportunities, environmental sustainability",
+      "agencies": "NPOP (National Programme for Organic Production), various certification bodies"
+    }
+  },
+  "climate_change_adaptation": {
+    "challenges": {
+      "temperature_rise": "Higher temperatures stress crops, reduce yields, change pest patterns",
+      "rainfall_changes": "Erratic rainfall, droughts, floods affect crop production",
+      "sea_level_rise": "Saltwater intrusion affects coastal agriculture",
+      "extreme_weather": "Cyclones, hailstorms cause crop damage"
+    },
+    "adaptation_strategies": {
+      "crop_diversification": "Grow multiple crops to spread risk, include climate-resilient varieties",
+      "water_conservation": "Rainwater harvesting, drip irrigation, mulching, watershed management",
+      "soil_conservation": "Prevent erosion, maintain organic matter, use cover crops",
+      "early_warning": "Use weather forecasts and alerts for timely decision making",
+      "insurance": "Crop insurance to protect against weather-related losses"
+    },
+    "resilient_varieties": {
+      "drought_tolerant": "Varieties that can withstand water stress",
+      "flood_tolerant": "Varieties that can survive temporary flooding", 
+      "salt_tolerant": "Varieties for coastal areas with salinity problems",
+      "heat_tolerant": "Varieties adapted to higher temperatures"
+    }
+  },
+  "precision_agriculture": {
+    "technologies": {
+      "gps_guidance": "GPS-guided tractors for precise field operations",
+      "variable_rate_application": "Apply inputs based on field variability maps",
+      "remote_sensing": "Satellite/drone imagery for crop monitoring",
+      "soil_sensors": "Monitor soil moisture, nutrients, pH in real-time",
+      "weather_stations": "On-farm weather monitoring for decision support"
+    },
+    "benefits": {
+      "input_optimization": "Reduce fertilizer and pesticide use through precise application",
+      "yield_improvement": "Better crop management leads to higher yields",
+      "cost_reduction": "Optimize input costs, reduce wastage",
+      "environmental_protection": "Minimize environmental impact of farming operations"
+    },
+    "implementation": {
+      "start_small": "Begin with one technology, gradually expand",
+      "data_management": "Collect and analyze farm data for decision making",
+      "training": "Learn to use new technologies effectively",
+      "cost_benefit": "Evaluate return on investment for each technology"
+    }
+  },
+  "market_linkages": {
+    "direct_marketing": {
+      "farm_gate_sales": "Sell directly to consumers at farm",
+      "farmers_markets": "Participate in local farmers markets",
+      "online_platforms": "Use e-commerce platforms for direct sales",
+      "community_supported_agriculture": "Pre-sell harvest to committed customers"
+    },
+    "value_addition": {
+      "processing": "Convert raw produce into processed products",
+      "packaging": "Proper packaging increases shelf life and value",
+      "branding": "Develop farm brand for premium positioning",
+      "certification": "Organic, fair trade certifications for premium prices"
+    },
+    "cooperative_marketing": {
+      "farmer_producer_organizations": "Form FPOs for collective bargaining power",
+      "contract_farming": "Enter into contracts with buyers for assured sales",
+      "cooperative_societies": "Join cooperatives for better market access",
+      "group_certification": "Reduce certification costs through group approach"
+    }
+  },
+  "government_schemes_detailed": {
+    "pm_kisan": {
+      "full_name": "Pradhan Mantri Kisan Samman Nidhi",
+      "budget_allocation": "₹75,000 crores annually",
+      "beneficiaries": "Over 11 crore farmers across India",
+      "payment_schedule": "Three installments of ₹2,000 each in April-July, August-November, December-March",
+      "eligibility_criteria": "Land holding up to 2 hectares, valid Aadhaar card, bank account",
+      "application_process": "Online at pmkisan.gov.in or through common service centers",
+      "required_documents": "Land records, Aadhaar card, bank passbook, mobile number"
+    },
+    "pmfby": {
+      "full_name": "Pradhan Mantri Fasal Bima Yojana", 
+      "coverage": "Pre-sowing to post-harvest losses including prevented sowing",
+      "premium_rates": "Kharif: 2%, Rabi: 1.5%, Annual horticultural: 5%",
+      "claim_settlement": "Based on yield data from crop cutting experiments",
+      "technology": "Satellite imagery, weather data, smart sampling for quick settlement",
+      "sum_insured": "Based on scale of finance or actuarial/bid premium rates"
+    },
+    "kisan_credit_card": {
+      "credit_limit": "Based on cropping pattern, scale of finance, land holding",
+      "interest_rate": "7% per annum with 3% interest subvention (effective 4%)",
+      "repayment": "Flexible based on crop harvest and income generation",
+      "additional_benefits": "Personal accident insurance cover of ₹50,000 to ₹2 lakh",
+      "validity": "3 years, renewable based on satisfactory repayment"
+    },
+    "soil_health_card": {
+      "objective": "Provide soil nutrient status to farmers for appropriate fertilizer recommendations",
+      "testing_parameters": "12 parameters including N, P, K, organic carbon, pH, electrical conductivity",
+      "frequency": "Once in 3 years for each land holding",
+      "recommendations": "Specific fertilizer recommendations for targeted crops",
+      "cost": "Free of cost to farmers"
+    }
+  }
+}

@@ -1,0 +1,282 @@
+{
+  "current_market_prices": {
+    "cereals": {
+      "rice": {
+        "varieties": {
+          "jyothi": {
+            "wholesale": "₹3,000-3,200 per quintal",
+            "retail": "₹32-35 per kg",
+            "premium_quality": "₹3,400-3,600 per quintal",
+            "factors": "Quality, moisture content, broken grain percentage"
+          },
+          "bhagya": {
+            "wholesale": "₹3,200-3,500 per quintal", 
+            "retail": "₹35-38 per kg",
+            "export_grade": "₹3,800-4,200 per quintal",
+            "factors": "Aroma, grain length, cooking quality"
+          },
+          "uma": {
+            "wholesale": "₹2,900-3,100 per quintal",
+            "retail": "₹31-34 per kg",
+            "factors": "Pest resistance, uniform grading"
+          }
+        },
+        "seasonal_trends": {
+          "harvest_season": "Prices drop by 10-15% due to increased supply",
+          "lean_season": "Prices rise by 15-20% due to reduced supply",
+          "festival_season": "Premium quality commands 20-30% higher prices"
+        },
+        "quality_parameters": {
+          "moisture_content": "Below 14% for safe storage and better price",
+          "broken_grains": "Less than 5% for premium grade",
+          "foreign_matter": "Less than 1% for top grade"
+        }
+      }
+    },
+    "spices": {
+      "black_pepper": {
+        "current_rates": {
+          "malabar_garbled": "₹650-750 per kg",
+          "tellicherry_extra_bold": "₹800-950 per kg",
+          "pinhead": "₹550-650 per kg",
+          "light_berries": "₹400-500 per kg"
+        },
+        "export_prices": {
+          "malabar_garbled": "$8-9 per kg FOB",
+          "tellicherry_extra_bold": "$10-12 per kg FOB"
+        },
+        "price_factors": {
+          "berry_size": "Larger berries command premium prices",
+          "oil_content": "Higher oil content increases value",
+          "moisture": "12-13% moisture ideal for export",
+          "cleanliness": "Free from stones, stems increases price"
+        },
+        "seasonal_variations": {
+          "harvest_time": "February-May, prices generally lower",
+          "monsoon_period": "June-September, prices stable",
+          "post_monsoon": "October-January, prices tend to increase"
+        }
+      },
+      "cardamom": {
+        "varieties": {
+          "large_cardamom": "₹800-1,200 per kg",
+          "small_cardamom_8mm": "₹1,500-2,000 per kg",
+          "small_cardamom_6mm": "₹1,200-1,500 per kg"
+        },
+        "auction_prices": "Cardamom auctions at Puttady, Kumily determine daily rates",
+        "export_demand": "Strong international demand maintains premium prices"
+      },
+      "ginger": {
+        "fresh_ginger": "₹40-60 per kg at farm gate",
+        "dried_ginger": "₹200-300 per kg",
+        "ginger_powder": "₹400-500 per kg",
+        "organic_ginger": "20-30% premium over conventional"
+      }
+    },
+    "plantation_crops": {
+      "coconut": {
+        "fresh_coconut": {
+          "farm_gate": "₹25-35 per nut",
+          "wholesale_market": "₹30-40 per nut",
+          "retail": "₹35-45 per nut",
+          "tender_coconut": "₹15-25 per nut"
+        },
+        "copra": {
+          "milling_copra": "₹140-160 per kg",
+          "edible_copra": "₹150-170 per kg",
+          "ball_copra": "₹160-180 per kg"
+        },
+        "coconut_oil": {
+          "crude_oil": "₹150-170 per liter",
+          "refined_oil": "₹180-200 per liter",
+          "virgin_coconut_oil": "₹300-400 per liter"
+        },
+        "price_determinants": {
+          "size_weight": "Larger, heavier nuts get better prices",
+          "water_content": "Good water content for tender nuts",
+          "meat_thickness": "Thick meat for copra production",
+          "seasonal_demand": "Higher prices during festival seasons"
+        }
+      },
+      "rubber": {
+        "latex": "₹170-190 per kg",
+        "sheet_rubber": "₹175-195 per kg",
+        "crepe_rubber": "₹165-185 per kg",
+        "price_factors": {
+          "international_prices": "Linked to global rubber prices",
+          "dry_rubber_content": "Higher DRC commands better prices",
+          "quality_grades": "RSS grades determine pricing"
+        }
+      },
+      "coffee": {
+        "arabica_cherry": "₹80-120 per kg",
+        "robusta_cherry": "₹60-90 per kg", 
+        "arabica_parchment": "₹400-500 per kg",
+        "robusta_parchment": "₹300-400 per kg",
+        "factors": "Altitude, processing method, cup quality"
+      }
+    },
+    "fruits": {
+      "banana": {
+        "nendran": {
+          "raw": "₹20-30 per kg",
+          "ripe": "₹25-35 per kg",
+          "export_quality": "₹40-50 per kg"
+        },
+        "robusta": {
+          "wholesale": "₹15-25 per kg",
+          "retail": "₹25-35 per kg"
+        },
+        "red_banana": {
+          "farm_gate": "₹30-40 per kg",
+          "retail": "₹40-50 per kg"
+        },
+        "value_addition": {
+          "banana_chips": "₹200-300 per kg",
+          "banana_powder": "₹150-200 per kg"
+        }
+      },
+      "mango": {
+        "alphonso": "₹100-200 per kg (seasonal)",
+        "bangalora": "₹40-60 per kg",
+        "neelum": "₹50-80 per kg",
+        "totapuri": "₹30-50 per kg (processing grade)"
+      }
+    },
+    "vegetables": {
+      "okra": "₹20-40 per kg",
+      "brinjal": "₹15-30 per kg", 
+      "tomato": "₹20-50 per kg (highly variable)",
+      "chili": "₹60-120 per kg",
+      "drumstick": "₹40-60 per kg",
+      "bitter_gourd": "₹30-50 per kg"
+    }
+  },
+  "market_intelligence": {
+    "price_forecasting": {
+      "factors_affecting_prices": {
+        "production_estimates": "Higher production generally leads to lower prices",
+        "weather_conditions": "Adverse weather increases prices",
+        "export_demand": "Strong export demand supports prices",
+        "government_policies": "MSP, import/export policies affect prices",
+        "storage_capacity": "Limited storage leads to distress selling",
+        "transportation_costs": "Fuel prices affect final commodity prices"
+      },
+      "seasonal_patterns": {
+        "rice": "Prices lowest during harvest (November-February), highest during lean period (June-September)",
+        "pepper": "Harvest season (February-May) sees price dips, monsoon period relatively stable",
+        "coconut": "Steady year-round, slight increase during festivals",
+        "vegetables": "Highly seasonal, monsoon affects supply and prices"
+      }
+    },
+    "market_trends": {
+      "organic_premium": "Organic produce commands 20-50% premium over conventional",
+      "processing_demand": "Increased demand for processed/value-added products",
+      "export_opportunities": "Strong demand for spices, rice, coconut products in international markets",
+      "direct_marketing": "Farmers markets, online platforms providing better price realization",
+      "contract_farming": "Pre-agreed prices providing price stability"
+    }
+  },
+  "marketing_strategies": {
+    "price_realization_techniques": {
+      "quality_improvement": {
+        "proper_harvesting": "Harvest at right maturity for better quality and price",
+        "post_harvest_handling": "Proper cleaning, grading, packaging increases value",
+        "storage_management": "Prevent quality deterioration during storage",
+        "certification": "Organic, fair trade certifications for premium pricing"
+      },
+      "market_timing": {
+        "avoid_glut_period": "Don't sell during peak harvest when prices are low",
+        "festival_marketing": "Time sales during festivals for premium prices",
+        "lean_period_sales": "Store and sell during lean period for better prices",
+        "export_window": "Align production with export demand seasons"
+      },
+      "value_addition": {
+        "primary_processing": "Basic cleaning, grading, packaging",
+        "secondary_processing": "Converting raw produce to processed products",
+        "branding": "Develop farm/product brand for market differentiation",
+        "direct_sales": "Sell directly to consumers, restaurants, institutions"
+      }
+    },
+    "market_linkage_options": {
+      "traditional_markets": {
+        "local_mandis": "Immediate sale but may not get best prices",
+        "wholesale_markets": "Better prices but need larger quantities",
+        "commission_agents": "Easy sale but commission charges apply"
+      },
+      "modern_markets": {
+        "supermarkets": "Premium prices but strict quality requirements",
+        "online_platforms": "Direct consumer access but need packaging/logistics",
+        "export_markets": "Best prices but quality and regulatory compliance needed",
+        "processing_companies": "Stable prices through contracts"
+      },
+      "cooperative_marketing": {
+        "fpo_marketing": "Farmer Producer Organizations for collective bargaining",
+        "cooperative_societies": "Traditional cooperatives for member benefit",
+        "self_help_groups": "Small group marketing for better prices",
+        "contract_farming": "Pre-agreed prices and quality specifications"
+      }
+    }
+  },
+  "government_support": {
+    "minimum_support_price": {
+      "rice": {
+        "common_grade": "₹2,183 per quintal (2023-24)",
+        "grade_a": "₹2,203 per quintal (2023-24)",
+        "procurement_agencies": "FCI, State agencies"
+      },
+      "coconut": "₹10,335 per quintal for milling copra (2023-24)"
+    },
+    "market_intervention": {
+      "price_support_scheme": "Government purchase when prices fall below economic levels",
+      "buffer_stock": "Maintain strategic reserves to stabilize prices",
+      "export_promotion": "Subsidies and incentives for export"
+    },
+    "infrastructure_support": {
+      "cold_storage": "Subsidies for cold storage construction",
+      "pack_houses": "Support for pack house development",
+      "transportation": "Subsidized transportation for remote areas",
+      "market_yards": "Development of modern market infrastructure"
+    }
+  },
+  "export_opportunities": {
+    "spices": {
+      "black_pepper": {
+        "major_markets": ["USA", "Germany", "UAE", "UK", "Netherlands"],
+        "export_requirements": "Moisture 12-13%, no aflatoxin, proper packaging",
+        "certification_needed": "Phytosanitary certificate, quality certificate"
+      },
+      "cardamom": {
+        "major_markets": ["Middle East", "Russia", "Japan", "USA"],
+        "grades": "AGEB (Alleppey Green Extra Bold), AGB (Alleppey Green Bold)"
+      }
+    },
+    "rice": {
+      "basmati": "Premium export variety with geographical indication",
+      "non_basmati": "Parboiled rice, broken rice for various markets",
+      "major_destinations": ["UAE", "Saudi Arabia", "Kuwait", "Qatar"]
+    },
+    "coconut_products": {
+      "coconut_oil": "Virgin coconut oil has premium market in health-conscious countries",
+      "desiccated_coconut": "Confectionery and bakery industry demand",
+      "coconut_water": "Growing health drink market globally"
+    }
+  },
+  "price_information_sources": {
+    "government_sources": {
+      "agmarknet": "www.agmarknet.gov.in - Daily market prices",
+      "dam": "Department of Agriculture and Marketing state websites",
+      "commodity_boards": "Spices Board, Coconut Development Board price updates"
+    },
+    "private_sources": {
+      "commodity_exchanges": "NCDEX, MCX for futures pricing",
+      "trade_associations": "All India Rice Exporters Association, Spices Board",
+      "market_reports": "Private agencies providing market intelligence"
+    },
+    "digital_platforms": {
+      "mobile_apps": "eNAM, Kisan Suvidha, Crop In for price information",
+      "sms_services": "Free SMS services for daily price updates",
+      "websites": "Various agri-portals providing price information"
+    }
+  }
+}

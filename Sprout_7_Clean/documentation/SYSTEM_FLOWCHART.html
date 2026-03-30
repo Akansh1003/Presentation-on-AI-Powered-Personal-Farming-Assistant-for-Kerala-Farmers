@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Krishi Sakhi - System Architecture Flowchart</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: rgba(255,255,255,0.95);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .header h1 {
+            color: #2E8B57;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        .flowchart {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .flow-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .flow-box {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            border-left: 5px solid #2E8B57;
+            min-width: 200px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .flow-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        }
+
+        .flow-box.frontend { border-left-color: #FF6B35; }
+        .flow-box.backend { border-left-color: #2E8B57; }
+        .flow-box.ai { border-left-color: #9B59B6; }
+        .flow-box.data { border-left-color: #3498DB; }
+        .flow-box.api { border-left-color: #F39C12; }
+
+        .flow-box h3 {
+            color: #333;
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .flow-box p {
+            color: #666;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .flow-arrow {
+            font-size: 2rem;
+            color: #2E8B57;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .tech-layer {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .tech-layer h2 {
+            text-align: center;
+            color: #2E8B57;
+            margin-bottom: 1.5rem;
+        }
+
+        .legend {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: white;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 3px;
+        }
+
+        .data-flow {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .step {
+            text-align: center;
+            flex: 1;
+        }
+
+        .step-number {
+            background: #2E8B57;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 0.5rem;
+            font-weight: bold;
+        }
+
+        .interactive-demo {
+            background: linear-gradient(135deg, #2E8B57, #90EE90);
+            color: white;
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .demo-button {
+            background: white;
+            color: #2E8B57;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 25px;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .demo-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+
+        .tooltip {
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+            white-space: nowrap;
+        }
+
+        .flow-box:hover .tooltip {
+            opacity: 1;
+        }
+
+        @media (max-width: 768px) {
+            .flow-row { flex-direction: column; }
+            .legend { flex-direction: column; align-items: center; }
+            .data-flow { flex-direction: column; gap: 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🌾 Krishi Sakhi System Architecture</h1>
+            <p>Interactive flowchart showing how our AI farming assistant works</p>
+        </div>
+
+        <!-- User Interaction Flow -->
+        <div class="tech-layer">
+            <h2>🎯 User Interaction Flow</h2>
+            <div class="data-flow">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h4>User Input</h4>
+                    <p>Farmer asks question via chat or clicks feature cards</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h4>Frontend Processing</h4>
+                    <p>JavaScript captures input and sends to backend API</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h4>Backend Routing</h4>
+                    <p>Flask server routes request to appropriate handler</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h4>AI Response</h4>
+                    <p>DialoGPT model generates intelligent response</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">5</div>
+                    <h4>Result Display</h4>
+                    <p>Response shown in chat or dedicated page</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main System Architecture -->
+        <div class="flowchart">
+            <!-- Frontend Layer -->
+            <div class="flow-row">
+                <div class="flow-box frontend">
+                    <div class="tooltip">User interface with HTML5, CSS3, vanilla JavaScript</div>
+                    <h3>🎨 Frontend Layer</h3>
+                    <p><strong>Technologies:</strong><br>HTML5 + CSS3 + JavaScript<br>Responsive Design<br>Real-time Updates</p>
+                </div>
+            </div>
+
+            <div class="flow-arrow">⬇️</div>
+
+            <!-- API Communication -->
+            <div class="flow-row">
+                <div class="flow-box api">
+                    <div class="tooltip">RESTful API endpoints for all communication</div>
+                    <h3>🌐 API Layer</h3>
+                    <p><strong>Endpoints:</strong><br>/api/ai/chat<br>/api/weather/live<br>/api/market/rotating<br>/api/farmer/register</p>
+                </div>
+            </div>
+
+            <div class="flow-arrow">⬇️</div>
+
+            <!-- Backend Processing -->
+            <div class="flow-row">
+                <div class="flow-box backend">
+                    <div class="tooltip">Flask-based server handling all business logic</div>
+                    <h3>⚙️ Backend Engine</h3>
+                    <p><strong>Flask Framework:</strong><br>Request Processing<br>Session Management<br>Error Handling<br>CORS Support</p>
+                </div>
+            </div>
+
+            <div class="flow-arrow">⬇️</div>
+
+            <!-- AI Processing Layer -->
+            <div class="flow-row">
+                <div class="flow-box ai">
+                    <div class="tooltip">Microsoft DialoGPT-medium with fallback models</div>
+                    <h3>🧠 AI Intelligence</h3>
+                    <p><strong>DialoGPT-medium:</strong><br>345M Parameters<br>Conversational AI<br>Context Awareness<br>Natural Language</p>
+                </div>
+                <div class="flow-box data">
+                    <div class="tooltip">Comprehensive Kerala agriculture knowledge base</div>
+                    <h3>📚 Knowledge Base</h3>
+                    <p><strong>4 JSON Files:</strong><br>Crop Information<br>Disease Encyclopedia<br>Market Data<br>Government Schemes</p>
+                </div>
+            </div>
+
+            <div class="flow-arrow">⬇️</div>
+
+            <!-- External Services -->
+            <div class="flow-row">
+                <div class="flow-box api">
+                    <div class="tooltip">Real-time weather data for farming decisions</div>
+                    <h3>🌤️ Weather API</h3>
+                    <p><strong>OpenWeatherMap:</strong><br>Live Weather Data<br>Farming Recommendations<br>Location-based Info</p>
+                </div>
+                <div class="flow-box data">
+                    <div class="tooltip">SQLite database for user and activity data</div>
+                    <h3>🗄️ Database</h3>
+                    <p><strong>SQLite:</strong><br>User Profiles<br>Activity Logs<br>Conversation Memory<br>Settings Storage</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- AI Model Loading Process -->
+        <div class="tech-layer">
+            <h2>🤖 AI Model Loading Hierarchy</h2>
+            <div class="flow-row">
+                <div class="flow-box ai" style="border-left-color: #27AE60;">
+                    <h3>✅ Primary Model</h3>
+                    <p><strong>DialoGPT-medium</strong><br>345M parameters<br>Currently Active</p>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-box ai" style="border-left-color: #F39C12;">
+                    <h3>🔄 Fallback #1</h3>
+                    <p><strong>DistilGPT-2</strong><br>82M parameters<br>Lightweight option</p>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-box ai" style="border-left-color: #E74C3C;">
+                    <h3>🔄 Fallback #2</h3>
+                    <p><strong>GPT-2 Base</strong><br>124M parameters<br>Emergency backup</p>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-box data" style="border-left-color: #8E44AD;">
+                    <h3>🛡️ Final Fallback</h3>
+                    <p><strong>Knowledge Base</strong><br>Rule-based responses<br>Always available</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Feature Pages Architecture -->
+        <div class="tech-layer">
+            <h2>📱 Feature Pages System</h2>
+            <div class="flow-row">
+                <div class="flow-box frontend" onclick="highlightFeature('weather')">
+                    <h3>🌤️ Weather Page</h3>
+                    <p>Live weather data<br>Farming recommendations<br>Weekly insights</p>
+                </div>
+                <div class="flow-box frontend" onclick="highlightFeature('market')">
+                    <h3>💰 Market Page</h3>
+                    <p>Current crop prices<br>Market trends<br>Trading tips</p>
+                </div>
+                <div class="flow-box frontend" onclick="highlightFeature('crops')">
+                    <h3>🌾 Crops Page</h3>
+                    <p>Variety recommendations<br>Cultivation guide<br>Best practices</p>
+                </div>
+                <div class="flow-box frontend" onclick="highlightFeature('disease')">
+                    <h3>🦟 Disease Page</h3>
+                    <p>Disease identification<br>Treatment methods<br>Prevention tips</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Interactive Demo Section -->
+        <div class="interactive-demo">
+            <h2>🎮 Interactive System Demo</h2>
+            <p>Click the buttons below to see how different system components work!</p>
+            <button class="demo-button" onclick="simulateAIResponse()">🧠 Simulate AI Response</button>
+            <button class="demo-button" onclick="simulateWeatherAPI()">🌤️ Test Weather API</button>
+            <button class="demo-button" onclick="simulateKnowledgeBase()">📚 Query Knowledge Base</button>
+            <div id="demo-output" style="margin-top: 1rem; background: rgba(255,255,255,0.2); padding: 1rem; border-radius: 10px; display: none;"></div>
+        </div>
+
+        <!-- Legend -->
+        <div class="legend">
+            <div class="legend-item">
+                <div class="legend-color" style="background: #FF6B35;"></div>
+                <span>Frontend Layer</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: #2E8B57;"></div>
+                <span>Backend Services</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: #9B59B6;"></div>
+                <span>AI Processing</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: #3498DB;"></div>
+                <span>Data Storage</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: #F39C12;"></div>
+                <span>External APIs</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Interactive demo functions
+        function simulateAIResponse() {
+            const output = document.getElementById('demo-output');
+            output.style.display = 'block';
+            output.innerHTML = `
+                <h3>🧠 AI Response Simulation</h3>
+                <div style="text-align: left; margin-top: 1rem;">
+                    <p><strong>User Query:</strong> "How to grow rice in Kerala?"</p>
+                    <p><strong>AI Processing:</strong> DialoGPT-medium analyzing query...</p>
+                    <p><strong>Knowledge Base:</strong> Retrieved rice cultivation data</p>
+                    <p><strong>Response:</strong> "🌾 Rice cultivation in Kerala requires well-prepared paddy fields with 5-10cm water depth. Best varieties include Jyothi (110-115 days, high yield) and Bhagya (aromatic, premium quality). Plant during Kharif season (June-July) with proper spacing and fertilizer management."</p>
+                </div>
+            `;
+        }
+
+        function simulateWeatherAPI() {
+            const output = document.getElementById('demo-output');
+            output.style.display = 'block';
+            output.innerHTML = `
+                <h3>🌤️ Weather API Simulation</h3>
+                <div style="text-align: left; margin-top: 1rem;">
+                    <p><strong>API Call:</strong> GET /api/weather/live?location=Kozhikode</p>
+                    <p><strong>OpenWeatherMap Response:</strong> Processing weather data...</p>
+                    <p><strong>Farming Analysis:</strong> Generating recommendations...</p>
+                    <p><strong>Result:</strong> Temperature: 25.6°C, Humidity: 94%, Conditions: Overcast. High humidity detected - monitor crops for fungal diseases. Good weather for field operations.</p>
+                </div>
+            `;
+        }
+
+        function simulateKnowledgeBase() {
+            const output = document.getElementById('demo-output');
+            output.style.display = 'block';
+            output.innerHTML = `
+                <h3>📚 Knowledge Base Query</h3>
+                <div style="text-align: left; margin-top: 1rem;">
+                    <p><strong>Query:</strong> "Black pepper disease management"</p>
+                    <p><strong>Searching Files:</strong> pest_disease_encyclopedia.json</p>
+                    <p><strong>Found Data:</strong> Pepper diseases and treatments</p>
+                    <p><strong>Result:</strong> Quick wilt is major threat for black pepper. Symptoms: sudden wilting, yellowing of leaves. Management: improve drainage, use Metalaxyl+Mancozeb 2g/L spray, plant resistant varieties like Subhakara.</p>
+                </div>
+            `;
+        }
+
+        function highlightFeature(feature) {
+            alert(`${feature.charAt(0).toUpperCase() + feature.slice(1)} Page: This feature provides specialized information and tools for ${feature} management in Kerala agriculture.`);
+        }
+
+        // Add some interactive animations
+        document.addEventListener('DOMContentLoaded', function() {
+            const boxes = document.querySelectorAll('.flow-box');
+            boxes.forEach(box => {
+                box.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-5px) scale(1.02)';
+                });
+                box.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
