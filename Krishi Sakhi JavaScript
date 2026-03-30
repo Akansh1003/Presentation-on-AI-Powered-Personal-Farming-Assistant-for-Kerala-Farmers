@@ -1,0 +1,674 @@
+// Krishi Sakhi JavaScript - Fixed Version
+class KrishiSakhi {
+    constructor() {
+        this.currentTab = 'home';
+        this.selectedImage = null;
+        this.analysisResult = null;
+        this.treatmentPreference = 'both';
+        this.language = 'en';
+        this.sessionStartTime = Date.now();
+        this.userPreferences = {};
+        this.analyticsData = [];
+        
+        this.init();
+    }
+
+    init() {
+        this.bindEvents();
+        this.showTab('home');
+        this.initializeComponents();
+    }
+
+    bindEvents() {
+        // Navigation events
+        document.addEventListener('click', (e) => {
+            const navLink = e.target.closest('.nav-link');
+            if (navLink) {
+                e.preventDefault();
+                const tab = navLink.getAttribute('data-tab');
+                if (tab && tab !== 'logout') {
+                    this.showTab(tab);
+                } else if (tab === 'logout') {
+                    this.handleLogout();
+                }
+            }
+
+            // Feature card navigation
+            const featureCard = e.target.closest('.feature-card');
+            if (featureCard) {
+                const tab = featureCard.getAttribute('data-tab');
+                if (tab) {
+                    this.showTab(tab);
+                }
+            }
+        });
+
+        // Language selector
+        const languageSelect = document.getElementById('languageSelect');
+        if (languageSelect) {
+            languageSelect.addEventListener('change', (e) => {
+                this.changeLanguage(e.target.value);
+            });
+        }
+
+        // Search functionality
+        const searchInput = document.getElementById('searchInput');
+        const searchBtn = document.querySelector('.search-btn');
+        
+        if (searchInput && searchBtn) {
+            searchBtn.addEventListener('click', () => {
+                this.handleSearch(searchInput.value);
+            });
+            
+            searchInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    this.handleSearch(searchInput.value);
+                }
+            });
+        }
+
+        // Image upload
+        this.initImageUpload();
+
+        // Treatment preference
+        this.initTreatmentPreference();
+    }
+
+    showTab(tabName) {
+        // Hide all tabs
+        document.querySelectorAll('.tab-content').forEach(tab => {
+            tab.classList.remove('active');
+        });
+
+        // Remove active class from nav links
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.classList.remove('active');
+        });
+
+        // Show selected tab
+        const targetTab = document.getElementById(tabName);
+        if (targetTab) {
+            targetTab.classList.add('active');
+            this.currentTab = tabName;
+        }
+
+        // Add active class to corresponding nav link
+        const navLink = document.querySelector(`[data-tab="${tabName}"]`);
+        if (navLink) {
+            navLink.classList.add('active');
+        }
+
+        // Load tab-specific content
+        this.loadTabContent(tabName);
+        this.trackUserAction('tab_changed', { tab: tabName });
+    }
+
+    loadTabContent(tabName) {
+        switch (tabName) {
+            case 'weather':
+                this.loadWeatherData();
+                break;
+            case 'market':
+                this.loadMarketPrices();
+                break;
+            case 'detection':
+                this.initDiseaseDetection();
+                break;
+        }
+    }
+
+    initImageUpload() {
+        const uploadArea = document.getElementById('uploadArea');
+        const imageInput = document.getElementById('imageInput');
+
+        if (uploadArea && imageInput) {
+            uploadArea.addEventListener('click', () => {
+                imageInput.click();
+            });
+
+            uploadArea.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                uploadArea.style.backgroundColor = '#e8f5e8';
+                uploadArea.style.borderColor = '#45a049';
+            });
+
+            uploadArea.addEventListener('dragleave', () => {
+                uploadArea.style.backgroundColor = '#f8fff8';
+                uploadArea.style.borderColor = '#4CAF50';
+            });
+
+            uploadArea.addEventListener('drop', (e) => {
+                e.preventDefault();
+                uploadArea.style.backgroundColor = '#f8fff8';
+                uploadArea.style.borderColor = '#4CAF50';
+                const files = e.dataTransfer.files;
+                if (files.length > 0) {
+                    this.handleImageUpload(files[0]);
+                }
+            });
+
+            imageInput.addEventListener('change', (e) => {
+                if (e.target.files.length > 0) {
+                    this.handleImageUpload(e.target.files[0]);
+                }
+            });
+        }
+    }
+
+    validateImageFile(file) {
+        const validTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+        const maxSize = 5 * 1024 * 1024; // 5MB
+
+        if (!validTypes.includes(file.type)) {
+            this.showNotification('Please select a valid image file (JPEG, PNG, GIF, WebP)', 'error');
+            return false;
+        }
+
+        if (file.size > maxSize) {
+            this.showNotification('Image size should be less than 5MB', 'error');
+            return false;
+        }
+
+        return true;
+    }
+
+    handleImageUpload(file) {
+        if (!this.validateImageFile(file)) {
+            return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            this.selectedImage = e.target.result;
+            this.displayUploadedImage(e.target.result);
+            this.startAnalysis();
+        };
+        reader.readAsDataURL(file);
+    }
+
+    displayUploadedImage(imageSrc) {
+        const uploadArea = document.getElementById('uploadArea');
+        if (uploadArea) {
+            uploadArea.innerHTML = `
+                <img src="${imageSrc}" alt="Uploaded crop image" style="max-width: 100%; max-height: 200px; border-radius: 10px; margin-bottom: 10px;">
+                <p style="color: #4CAF50; font-weight: 600;">Image uploaded successfully!</p>
+                <p style="color: #666; font-size: 0.9rem;">Click to upload another image</p>
+            `;
+        }
+    }
+
+    startAnalysis() {
+        const analysisSection = document.getElementById('analysisSection');
+        const analysisLoading = document.getElementById('analysisLoading');
+        const analysisResult = document.getElementById('analysisResult');
+        
+        if (analysisSection && analysisLoading) {
+            analysisSection.style.display = 'block';
+            analysisLoading.style.display = 'block';
+            if (analysisResult) analysisResult.style.display = 'none';
+            
+            this.trackUserAction('disease_analysis_started');
+            
+            // Simulate analysis process
+            setTimeout(() => {
+                this.completeAnalysis();
+            }, 3000);
+        }
+    }
+
+    completeAnalysis() {
+        const analysisLoading = document.getElementById('analysisLoading');
+        const analysisResult = document.getElementById('analysisResult');
+        
+        if (analysisLoading && analysisResult) {
+            analysisLoading.style.display = 'none';
+            analysisResult.style.display = 'block';
+            
+            // Mock analysis result
+            const mockResult = {
+                disease: 'Leaf Blight',
+                confidence: 87,
+                severity: 'Moderate',
+                organicTreatment: {
+                    name: 'Neem Oil Spray',
+                    ingredients: ['Neem oil', 'Liquid soap', 'Water'],
+                    method: 'Mix 2 tablespoons neem oil with 1 teaspoon liquid soap in 1 liter water. Spray on affected areas in early morning or evening.',
+                    effectiveness: '75%',
+                    timeToSeeResults: '5-7 days',
+                    cost: '₹50-100'
+                },
+                chemicalTreatment: {
+                    name: 'Copper Fungicide',
+                    ingredients: ['Copper sulfate', 'Lime'],
+                    method: 'Apply copper-based fungicide as per manufacturer instructions. Ensure proper protective equipment.',
+                    effectiveness: '90%',
+                    timeToSeeResults: '3-5 days',
+                    cost: '₹200-300'
+                },
+                prevention: 'Ensure proper drainage, avoid overhead watering, maintain plant spacing'
+            };
+            
+            this.analysisResult = mockResult;
+            this.displayAnalysisResult(mockResult);
+            this.trackUserAction('disease_analysis_completed', { disease: mockResult.disease });
+        }
+    }
+
+    displayAnalysisResult(result) {
+        // Update disease name
+        const diseaseName = document.getElementById('diseaseName');
+        if (diseaseName) {
+            diseaseName.textContent = `${result.disease} (${result.confidence}% confidence)`;
+        }
+
+        // Update confidence bar
+        const confidenceFill = document.getElementById('confidenceFill');
+        const confidenceText = document.getElementById('confidenceText');
+        if (confidenceFill && confidenceText) {
+            setTimeout(() => {
+                confidenceFill.style.width = `${result.confidence}%`;
+            }, 100);
+            confidenceText.textContent = `${result.confidence}% Confidence`;
+        }
+
+        // Display treatments based on preference
+        this.displayTreatments(result);
+    }
+
+    displayTreatments(result) {
+        const organicTreatment = document.getElementById('organicTreatment');
+        const chemicalTreatment = document.getElementById('chemicalTreatment');
+        
+        if (this.treatmentPreference === 'organic' || this.treatmentPreference === 'both') {
+            if (organicTreatment) {
+                organicTreatment.style.display = 'block';
+                this.renderTreatmentContent(organicTreatment, result.organicTreatment, 'organic');
+            }
+        } else if (organicTreatment) {
+            organicTreatment.style.display = 'none';
+        }
+
+        if (this.treatmentPreference === 'chemical' || this.treatmentPreference === 'both') {
+            if (chemicalTreatment) {
+                chemicalTreatment.style.display = 'block';
+                this.renderTreatmentContent(chemicalTreatment, result.chemicalTreatment, 'chemical');
+            }
+        } else if (chemicalTreatment) {
+            chemicalTreatment.style.display = 'none';
+        }
+    }
+
+    renderTreatmentContent(container, treatment, type) {
+        const contentDiv = container.querySelector('.treatment-content');
+        if (contentDiv) {
+            contentDiv.innerHTML = `
+                <div class="treatment-details">
+                    <h5 style="font-size: 1.1rem; font-weight: 600; margin-bottom: 1rem; color: #333;">${treatment.name}</h5>
+                    <div class="treatment-stats" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 0.5rem; margin-bottom: 1rem;">
+                        <div class="stat" style="display: flex; align-items: center; font-size: 0.85rem;">
+                            <i class="fa-solid fa-chart-line" style="margin-right: 0.5rem; color: ${type === 'organic' ? '#4CAF50' : '#2196F3'};"></i>
+                            <span>Effectiveness: ${treatment.effectiveness}</span>
+                        </div>
+                        <div class="stat" style="display: flex; align-items: center; font-size: 0.85rem;">
+                            <i class="fa-solid fa-clock" style="margin-right: 0.5rem; color: ${type === 'organic' ? '#4CAF50' : '#2196F3'};"></i>
+                            <span>Results: ${treatment.timeToSeeResults}</span>
+                        </div>
+                        <div class="stat" style="display: flex; align-items: center; font-size: 0.85rem;">
+                            <i class="fa-solid fa-indian-rupee-sign" style="margin-right: 0.5rem; color: ${type === 'organic' ? '#4CAF50' : '#2196F3'};"></i>
+                            <span>Cost: ${treatment.cost}</span>
+                        </div>
+                    </div>
+                    <div class="ingredients" style="margin-bottom: 1rem;">
+                        <h6 style="font-weight: 600; font-size: 0.9rem; margin-bottom: 0.5rem; color: #555;">Ingredients:</h6>
+                        <ul style="margin: 0; padding-left: 1.5rem; font-size: 0.85rem; color: #666;">
+                            ${treatment.ingredients.map(ingredient => `<li style="margin-bottom: 0.25rem;">${ingredient}</li>`).join('')}
+                        </ul>
+                    </div>
+                    <div class="method">
+                        <h6 style="font-weight: 600; font-size: 0.9rem; margin-bottom: 0.5rem; color: #555;">Application Method:</h6>
+                        <p style="font-size: 0.85rem; line-height: 1.4; color: #666; margin: 0;">${treatment.method}</p>
+                    </div>
+                </div>
+            `;
+        }
+    }
+
+    initTreatmentPreference() {
+        document.addEventListener('change', (e) => {
+            if (e.target.name === 'treatment') {
+                this.treatmentPreference = e.target.value;
+                this.showNotification(`Treatment preference set to ${e.target.value}`, 'success');
+                
+                // Re-display treatments if analysis is complete
+                if (this.analysisResult) {
+                    this.displayTreatments(this.analysisResult);
+                }
+                
+                this.trackUserAction('treatment_preference_changed', { preference: e.target.value });
+            }
+        });
+    }
+
+    loadWeatherData() {
+        // Simulate weather data loading with real-time updates
+        const weatherData = {
+            current: {
+                location: "Kochi, Kerala",
+                temperature: 28,
+                condition: "Partly Cloudy",
+                humidity: 85,
+                windSpeed: 12
+            },
+            forecast: [
+                { day: "Today", temp: "28°C", condition: "Partly Cloudy" },
+                { day: "Tomorrow", temp: "30°C", condition: "Sunny" },
+                { day: "Day 3", temp: "26°C", condition: "Light Rain" }
+            ]
+        };
+
+        this.updateWeatherDisplay(weatherData);
+        this.trackUserAction('weather_viewed');
+    }
+
+    updateWeatherDisplay(data) {
+        // Update current weather elements
+        const temperature = document.querySelector('.temperature');
+        const condition = document.querySelector('.condition');
+        const location = document.querySelector('.weather-location span');
+
+        if (temperature) temperature.textContent = `${data.current.temperature}°C`;
+        if (condition) condition.textContent = data.current.condition;
+        if (location) location.textContent = data.current.location;
+
+        // Update weather details
+        const weatherDetails = document.querySelectorAll('.weather-detail span');
+        if (weatherDetails.length >= 2) {
+            weatherDetails[0].textContent = `Humidity: ${data.current.humidity}%`;
+            weatherDetails[1].textContent = `Wind: ${data.current.windSpeed} km/h`;
+        }
+    }
+
+    loadMarketPrices() {
+        const marketPrices = [
+            { crop: "Rice", price: "₹2,850", unit: "per quintal", trend: "up", change: "+2.5%" },
+            { crop: "Coconut", price: "₹28", unit: "per piece", trend: "down", change: "-1.2%" },
+            { crop: "Pepper", price: "₹625", unit: "per kg", trend: "up", change: "+5.1%" },
+            { crop: "Cardamom", price: "₹1,250", unit: "per kg", trend: "stable", change: "0%" },
+            { crop: "Ginger", price: "₹180", unit: "per kg", trend: "up", change: "+3.2%" },
+            { crop: "Turmeric", price: "₹95", unit: "per kg", trend: "down", change: "-0.8%" }
+        ];
+
+        this.updateMarketDisplay(marketPrices);
+        this.trackUserAction('market_prices_viewed');
+    }
+
+    updateMarketDisplay(prices) {
+        const priceList = document.querySelector('.price-list');
+        if (priceList && prices.length > 0) {
+            priceList.innerHTML = prices.map(item => `
+                <div class="price-item">
+                    <div class="crop-info">
+                        <h3>${item.crop}</h3>
+                        <span class="unit">${item.unit}</span>
+                    </div>
+                    <div class="price">${item.price}</div>
+                    <div class="trend ${item.trend}">
+                        <i class="fa-solid fa-arrow-${item.trend === 'up' ? 'up' : item.trend === 'down' ? 'down' : 'right'}"></i>
+                        <small style="margin-left: 5px;">${item.change}</small>
+                    </div>
+                </div>
+            `).join('');
+        }
+    }
+
+    handleSearch(query) {
+        if (!query.trim()) {
+            this.showNotification('Please enter a search query', 'warning');
+            return;
+        }
+
+        this.trackUserAction('search_performed', { query: query });
+        this.showNotification(`Searching for: "${query}"`, 'info');
+        
+        // In a real application, this would make an API call
+        setTimeout(() => {
+            this.showNotification('Search feature coming soon!', 'info');
+        }, 1000);
+    }
+
+    changeLanguage(lang) {
+        this.language = lang;
+        this.showNotification(`Language changed to ${lang === 'en' ? 'English' : 'Malayalam'}`, 'success');
+        this.trackUserAction('language_changed', { language: lang });
+        
+        // Update language selector if it exists
+        const languageSelect = document.getElementById('languageSelect');
+        if (languageSelect && languageSelect.value !== lang) {
+            languageSelect.value = lang;
+        }
+    }
+
+    handleLogout() {
+        if (confirm('Are you sure you want to logout?')) {
+            this.trackUserAction('logout_initiated');
+            this.showNotification('Logging out...', 'info');
+            
+            // In a real application, this would clear session and redirect
+            setTimeout(() => {
+                this.showNotification('Logged out successfully!', 'success');
+                // Reset application state
+                this.currentTab = 'home';
+                this.selectedImage = null;
+                this.analysisResult = null;
+                this.showTab('home');
+            }, 1000);
+        }
+    }
+
+    showNotification(message, type = 'info') {
+        // Remove existing notifications
+        const existingNotifications = document.querySelectorAll('.notification');
+        existingNotifications.forEach(notification => {
+            notification.remove();
+        });
+
+        // Create notification element
+        const notification = document.createElement('div');
+        notification.className = `notification ${type}`;
+        notification.innerHTML = `
+            <span>${message}</span>
+            <button onclick="this.parentElement.remove()" style="background: none; border: none; color: white; margin-left: 10px; cursor: pointer; font-size: 18px;">&times;</button>
+        `;
+
+        // Add to DOM
+        document.body.appendChild(notification);
+
+        // Show notification with animation
+        setTimeout(() => {
+            notification.classList.add('show');
+        }, 100);
+
+        // Auto-hide after 5 seconds
+        setTimeout(() => {
+            if (notification.parentElement) {
+                notification.classList.remove('show');
+                setTimeout(() => {
+                    if (notification.parentElement) {
+                        notification.remove();
+                    }
+                }, 300);
+            }
+        }, 5000);
+    }
+
+    trackUserAction(action, data = {}) {
+        const event = {
+            timestamp: new Date().toISOString(),
+            action: action,
+            data: data,
+            sessionId: 'session_' + this.sessionStartTime,
+            language: this.language
+        };
+
+        this.analyticsData.push(event);
+        console.log('Analytics:', event);
+    }
+
+    initializeComponents() {
+        // Initialize tooltips and animations
+        this.initTooltips();
+        this.initAnimations();
+        
+        // Load saved preferences
+        this.loadUserPreferences();
+        
+        console.log('Krishi Sakhi components initialized');
+    }
+
+    initTooltips() {
+        // Add tooltips to important elements
+        const tooltipElements = document.querySelectorAll('[title]');
+        tooltipElements.forEach(element => {
+            element.addEventListener('mouseenter', (e) => {
+                // Simple tooltip implementation
+                const tooltip = document.createElement('div');
+                tooltip.className = 'custom-tooltip';
+                tooltip.textContent = e.target.getAttribute('title');
+                tooltip.style.cssText = `
+                    position: absolute;
+                    background: #333;
+                    color: white;
+                    padding: 5px 10px;
+                    border-radius: 4px;
+                    font-size: 12px;
+                    z-index: 1000;
+                    pointer-events: none;
+                `;
+                
+                document.body.appendChild(tooltip);
+                
+                const rect = e.target.getBoundingClientRect();
+                tooltip.style.left = rect.left + 'px';
+                tooltip.style.top = (rect.top - tooltip.offsetHeight - 5) + 'px';
+                
+                e.target._tooltip = tooltip;
+            });
+            
+            element.addEventListener('mouseleave', (e) => {
+                if (e.target._tooltip) {
+                    e.target._tooltip.remove();
+                    e.target._tooltip = null;
+                }
+            });
+        });
+    }
+
+    initAnimations() {
+        // Intersection Observer for animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+
+        // Observe elements that should animate in
+        document.querySelectorAll('.feature-card, .card, .price-item').forEach(element => {
+            element.style.opacity = '0';
+            element.style.transform = 'translateY(20px)';
+            element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(element);
+        });
+    }
+
+    loadUserPreferences() {
+        // In a real app, this would load from localStorage or API
+        // For demo, using in-memory storage
+        if (this.userPreferences.language) {
+            this.language = this.userPreferences.language;
+        }
+        if (this.userPreferences.treatmentPreference) {
+            this.treatmentPreference = this.userPreferences.treatmentPreference;
+        }
+    }
+
+    saveUserPreferences() {
+        this.userPreferences = {
+            language: this.language,
+            treatmentPreference: this.treatmentPreference,
+            currentTab: this.currentTab
+        };
+        this.showNotification('Preferences saved', 'success');
+    }
+
+    initDiseaseDetection() {
+        this.trackUserAction('disease_detection_opened');
+        
+        // Reset analysis state when tab opens
+        const analysisSection = document.getElementById('analysisSection');
+        if (analysisSection) {
+            analysisSection.style.display = 'none';
+        }
+        
+        // Reset image upload area if needed
+        const uploadArea = document.getElementById('uploadArea');
+        if (uploadArea && !this.selectedImage) {
+            uploadArea.innerHTML = `
+                <i class="fa-solid fa-cloud-arrow-up" style="font-size: 3rem; color: #4CAF50; margin-bottom: 1rem; display: block;"></i>
+                <p style="color: #666; font-size: 1.1rem; margin: 0;">Click to upload or drag and drop crop images</p>
+            `;
+        }
+    }
+}
+
+// Initialize the application when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    console.log('DOM loaded, initializing Krishi Sakhi...');
+    
+    try {
+        const app = new KrishiSakhi();
+        
+        // Add global error handling
+        window.addEventListener('error', (event) => {
+            console.error('Global error:', event.error);
+            if (app && app.showNotification) {
+                app.showNotification('An error occurred. Please refresh if issues persist.', 'error');
+            }
+        });
+        
+        // Add keyboard shortcuts
+        document.addEventListener('keydown', (event) => {
+            if (!app) return;
+            
+            // Escape to go to home
+            if (event.key === 'Escape') {
+                app.showTab('home');
+            }
+            
+            // Ctrl/Cmd + S to save preferences
+            if ((event.ctrlKey || event.metaKey) && event.key === 's') {
+                event.preventDefault();
+                app.saveUserPreferences();
+            }
+            
+            // Number keys for quick navigation
+            if (event.key >= '1' && event.key <= '6') {
+                const tabs = ['home', 'profile', 'farmguide', 'market', 'weather', 'detection'];
+                const tabIndex = parseInt(event.key) - 1;
+                if (tabs[tabIndex]) {
+                    app.showTab(tabs[tabIndex]);
+                }
+            }
+        });
+        
+        // Expose app instance globally for debugging
+        window.krishiApp = app;
+        
+        console.log('Krishi Sakhi application initialized successfully!');
+        
+    } catch (error) {
+        console.error('Failed to initialize Krishi Sakhi:', error);
+    }
+});
